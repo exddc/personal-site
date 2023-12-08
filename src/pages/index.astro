@@ -4,27 +4,133 @@ import Card from '../components/Card.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-    <main class="grid grid-cols-2 h-screen">
-        <div id="sidebar" class="border-r">
+    <main class="text-sm font-light tracking-tight flex flex-col">
+        <div id="hero" class="flex flex-row w-full h-[35vh]">
             <div
-                id="sidebar-top"
-                class="flex items-center justify-center border-b h-1/3"
+                id="hero-sidebar"
+                class="border-r border-b w-[35%] flex items-center justify-center"
             >
-                <div id="title" class="text-left">
-                    <h1 class="text-sm font-bold">Timo Weiss</h1>
-                    <p class="text-sm">Software Developer at MAGNA</p>
+                <div id="title" class="text-left w-[40%]">
+                    <h1 class="font-bold">Timo Weiss</h1>
+                    <p class="">Software Developer at MAGNA</p>
                 </div>
             </div>
-
-            <ul
-                id="navigation"
-                class="font-bold text-sm text-center flex flex-col justify-between h-2/3 py-12"
-            >
-                <li>About me</li>
-                <li>Projects</li>
-                <li>Links</li>
-            </ul>
+            <div id="hero-content" class=""></div>
         </div>
-        <div id="content" class=""></div>
+        <div id="bio" class="flex flex-row w-full h-fit">
+            <div
+                id="bio-sidebar"
+                class="border-r w-[35%] flex items-start justify-center pt-12"
+            >
+                <h2 class="font-bold w-[40%]">About me</h2>
+            </div>
+            <div
+                id="bio-content"
+                class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
+            >
+                <p class="">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec euismod, nisl eget condimentum aliquam, nunc nisl
+                    ultrices nunc, nec aliquam nisl nunc vitae nisl. Phasellus
+                    euismod, nisl eget condimentum aliquam, nunc nisl ultrices
+                    nunc, nec aliquam nisl nunc vitae nisl. Phasellus euismod,
+                    nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec
+                    aliquam nisl nunc vitae nisl. Phasellus euismod, nisl eget
+                    condimentum aliquam, nunc nisl ultrices nunc, nec aliquam
+                    nisl nunc vitae nisl.
+                </p>
+            </div>
+        </div>
+        <div id="projects" class="flex flex-row w-full h-fit">
+            <div
+                id="projects-sidebar"
+                class="border-r w-[35%] flex items-start justify-center pt-12"
+            >
+                <h2 class="font-bold w-[40%]">Projects</h2>
+            </div>
+
+            <div
+                id="projects-content"
+                class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
+            >
+                <Card
+                    title="sharemy.site"
+                    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl. Phasellus euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl."
+                    image="/images/sharemysite.jpg"
+                    href="https://sharemy.site"
+                />
+                <Card
+                    title="finate.io"
+                    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl. Phasellus euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl."
+                    image="/images/finate.jpg"
+                    href="https://finate.io"
+                />
+                <Card
+                    title="luuma.one"
+                    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl. Phasellus euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl."
+                    image="/images/luuma.jpg"
+                    href="https://luuma.one"
+                />
+            </div>
+        </div>
+        <div id="products" class="flex flex-row w-full h-fit">
+            <div
+                id="products-sidebar"
+                class="border-r w-[35%] flex items-start justify-center pt-12"
+            >
+                <h2 class="font-bold w-[40%]">Products</h2>
+            </div>
+
+            <div
+                id="products-content"
+                class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
+            >
+                <Card
+                    title="Screen Protector Application Aid"
+                    body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl. Phasellus euismod, nisl eget condimentum aliquam, nunc nisl ultrices nunc, nec aliquam nisl nunc vitae nisl."
+                    image="/images/sharemysite.jpg"
+                    href="https://sharemy.site"
+                />
+            </div>
+        </div>
+        <div id="links" class="flex flex-row w-full h-fit">
+            <div
+                id="links-sidebar"
+                class="border-r w-[35%] flex items-start justify-center pt-12"
+            >
+                <h2 class="font-bold w-[40%]">Links</h2>
+            </div>
+
+            <div
+                id="links-content"
+                class="w-[65%] px-28 grid grid-cols-1 gap-5 items-start justify-center pt-12 pb-12"
+            >
+                <div class="grid grid-cols-1 gap-0">
+                    <h4 class="font-bold">x.com</h4>
+                    <a
+                        href="https://x.com/timooweiss"
+                        class="hover:text-rose-600"
+                        target="_blank"
+                        >@timooweiss
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 gap-0">
+                    <h4 class="font-bold">Instagram</h4>
+                    <a
+                        href="https://instagram.com/tiimoweiss"
+                        class="hover:text-rose-600"
+                        target="_blank">@tiimoweiss</a
+                    >
+                </div>
+                <div class="grid grid-cols-1 gap-0">
+                    <h4 class="font-bold">Github</h4>
+                    <a
+                        href="https://github.com/exddc"
+                        class="hover:text-rose-600"
+                        target="_blank">@exddc</a
+                    >
+                </div>
+            </div>
+        </div>
     </main>
 </Layout>

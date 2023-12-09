@@ -18,7 +18,9 @@ const { href, title, body, image } = Astro.props;
         <p class="">
             {body}
         </p>
-        <a href={href} class="hover:text-rose-600">Go visit -></a>
+        <a href={href} class="hover:text-rose-600" target="_blank"
+            >Go visit -></a
+        >
     </div>
     <div id={title + '-image'} class="w-[50%] flex items-center justify-center">
         <img src={image} alt="sharemy.site" class="w-full border" />

@@ -4,9 +4,10 @@ interface Props {
     body: string;
     href: string;
     image: string;
+    newTab?: boolean;
 }
 
-const { href, title, body, image } = Astro.props;
+const { href, title, body, image, newTab = true } = Astro.props;
 ---
 
 <div id={title} class="flex flex-row">
@@ -18,8 +19,10 @@ const { href, title, body, image } = Astro.props;
         <p class="">
             {body}
         </p>
-        <a href={href} class="hover:text-rose-600" target="_blank"
-            >Go visit -></a
+        <a
+            href={href}
+            class="hover:text-rose-600"
+            target={newTab ? '_blank' : ''}>Go visit -></a
         >
     </div>
     <div id={title + '-image'} class="w-[50%] flex items-center justify-center">

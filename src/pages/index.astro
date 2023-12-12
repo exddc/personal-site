@@ -4,148 +4,116 @@ import Card from '../components/Card.astro';
 ---
 
 <Layout title="Timo Weiss">
-    <main class="flex flex-col">
-        <div id="hero" class="flex flex-row w-full h-[35vh]">
-            <div
-                id="hero-sidebar"
-                class="border-r border-b w-[35%] flex items-center justify-center"
-            >
-                <div id="title" class="text-left w-[50%]">
-                    <h1 class="font-medium">Timo Weiss</h1>
-                    <p class="">Software Developer at Magna</p>
-                </div>
-            </div>
-            <div id="hero-content" class=""></div>
+    <div id="bio" class="flex flex-row w-full h-fit">
+        <div
+            id="bio-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">About me</h2>
         </div>
-        <div id="bio" class="flex flex-row w-full h-fit">
-            <div
-                id="bio-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">About me</h2>
-            </div>
-            <div
-                id="bio-content"
-                class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
-            >
-                <p class="">
-                    Software Developer and Maker who focuses on improving
-                    fundamental aspects of everyday life. Throughout the day I
-                    work for our customers to improve their automotive testing
-                    software. At night I work on several projects - some already
-                    public, others coming soon - to make a small impact in
-                    people's lives.
-                </p>
-            </div>
+        <div
+            id="bio-content"
+            class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
+        >
+            <p class="">
+                Software Developer and Maker who focuses on improving
+                fundamental aspects of everyday life. Throughout the day I work
+                for our customers to improve their automotive testing software.
+                At night I work on several projects - some already public,
+                others coming soon - to make a small impact in people's lives.
+            </p>
         </div>
-        <div id="projects" class="flex flex-row w-full h-fit">
-            <div
-                id="projects-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Projects</h2>
-            </div>
+    </div>
+    <div id="projects" class="flex flex-row w-full h-fit">
+        <div
+            id="projects-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Projects</h2>
+        </div>
 
-            <div
-                id="projects-content"
-                class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
-            >
-                <Card
-                    title="sharemy.site"
-                    body="Create a beautiful page for your links, projects and social media profiles to make it easier to share your work with others. A major version update of this project is currently in the works."
-                    image="/images/sharemysite.jpg"
-                    href="https://sharemy.site"
-                />
-                <Card
-                    title="finate.io"
-                    body="Track all your investments in one place and get a clear overview of your portfolio. This project is currently in cloesd alpha testing and will be released soon."
-                    image="/images/finate.jpg"
-                    href="https://finate.io"
-                />
-                <Card
-                    title="luuma.one"
-                    body="Tackle your hardest problems togehter with a friend. Build truly lasting habits with the help of your accountability partner. This project is currently in cloesd alpha testing and will be released soon."
-                    image="/images/luuma.jpg"
-                    href="https://luuma.one"
-                />
-            </div>
+        <div
+            id="projects-content"
+            class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
+        >
+            <Card
+                title="sharemy.site"
+                body="Create a beautiful page for your links, projects and social media profiles to make it easier to share your work with others. A major version update of this project is currently in the works."
+                image="/images/sharemysite.jpg"
+                href="https://sharemy.site"
+            />
+            <Card
+                title="finate.io"
+                body="Track all your investments in one place and get a clear overview of your portfolio. This project is currently in cloesd alpha testing and will be released soon."
+                image="/images/finate.jpg"
+                href="https://finate.io"
+            />
+            <Card
+                title="luuma.one"
+                body="Tackle your hardest problems togehter with a friend. Build truly lasting habits with the help of your accountability partner. This project is currently in cloesd alpha testing and will be released soon."
+                image="/images/luuma.jpg"
+                href="https://luuma.one"
+            />
         </div>
-        <div id="products" class="flex flex-row w-full h-fit">
-            <div
-                id="products-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Products</h2>
-            </div>
+    </div>
+    <div id="products" class="flex flex-row w-full h-fit">
+        <div
+            id="products-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Products</h2>
+        </div>
 
-            <div
-                id="products-content"
-                class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
-            >
-                <Card
-                    title="Screen Protector Application Aid"
-                    body="A simple aid to help you align your screen protector perfectly. Currently available for iPhone 15 Pro and iPhone 15 Pro Max. More models coming soon."
-                    image="/images/iPhoneScreenProtectorAid-5.jpg"
-                    href="/products/screen-protector-application-aid"
-                    newTab={false}
-                />
-            </div>
+        <div
+            id="products-content"
+            class="w-[65%] px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
+        >
+            <Card
+                title="Screen Protector Application Aid"
+                body="A simple aid to help you align your screen protector perfectly. Currently available for iPhone 15 Pro and iPhone 15 Pro Max. More models coming soon."
+                image="/images/iPhoneScreenProtectorAid-5.jpg"
+                href="/products/screen-protector-application-aid"
+                newTab={false}
+            />
         </div>
-        <div id="links" class="flex flex-row w-full h-fit">
-            <div
-                id="links-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Links</h2>
-            </div>
+    </div>
+    <div id="links" class="flex flex-row w-full h-fit">
+        <div
+            id="links-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Links</h2>
+        </div>
 
-            <div
-                id="links-content"
-                class="w-[65%] px-28 grid grid-cols-1 gap-5 items-start justify-center pt-12 pb-12"
-            >
-                <div class="grid grid-cols-1 gap-0">
-                    <h4 class="font-medium">x.com</h4>
-                    <a
-                        href="https://x.com/timooweiss"
-                        class="hover:text-rose-600"
-                        target="_blank"
-                        >@timooweiss
-                    </a>
-                </div>
-                <div class="grid grid-cols-1 gap-0">
-                    <h4 class="font-medium">Instagram</h4>
-                    <a
-                        href="https://instagram.com/tiimoweiss"
-                        class="hover:text-rose-600"
-                        target="_blank">@tiimoweiss</a
-                    >
-                </div>
-                <div class="grid grid-cols-1 gap-0">
-                    <h4 class="font-medium">Github</h4>
-                    <a
-                        href="https://github.com/exddc"
-                        class="hover:text-rose-600"
-                        target="_blank">@exddc</a
-                    >
-                </div>
+        <div
+            id="links-content"
+            class="w-[65%] px-28 grid grid-cols-1 gap-5 items-start justify-center pt-12 pb-12"
+        >
+            <div class="grid grid-cols-1 gap-0">
+                <h4 class="font-medium">x.com</h4>
+                <a
+                    href="https://x.com/timooweiss"
+                    class="hover:text-rose-600"
+                    target="_blank"
+                    >@timooweiss
+                </a>
+            </div>
+            <div class="grid grid-cols-1 gap-0">
+                <h4 class="font-medium">Instagram</h4>
+                <a
+                    href="https://instagram.com/tiimoweiss"
+                    class="hover:text-rose-600"
+                    target="_blank">@tiimoweiss</a
+                >
+            </div>
+            <div class="grid grid-cols-1 gap-0">
+                <h4 class="font-medium">Github</h4>
+                <a
+                    href="https://github.com/exddc"
+                    class="hover:text-rose-600"
+                    target="_blank">@exddc</a
+                >
             </div>
         </div>
-        <div id="footer" class="flex flex-row w-full h-fit">
-            <div
-                id="footer-sidebar"
-                class="border-r border-t w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Timo Weiss</h2>
-            </div>
-
-            <div
-                id="footer-content"
-                class="w-[65%] px-28 grid grid-cols-3 gap-5 items-start justify-center pt-12 pb-12"
-            >
-                <a href="/" class="hover:text-rose-600">Home</a>
-                <!-- <a href="/" class="hover:text-rose-600">Home</a>
-                <a href="/" class="hover:text-rose-600">Home</a> -->
-            </div>
-        </div>
-    </main>
+    </div>
 </Layout>

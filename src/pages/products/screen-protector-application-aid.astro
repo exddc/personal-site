@@ -2,110 +2,77 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Screen Protector Application Aid - Timo Weiss">
-    <main class="flex flex-col">
-        <div id="hero" class="flex flex-row w-full h-[35vh]">
-            <div
-                id="hero-sidebar"
-                class="border-r border-b w-[35%] flex items-center justify-center"
-            >
-                <div id="title" class="text-left w-[50%]">
-                    <h1 class="font-medium">
-                        Screen Protector Application Aid
-                    </h1>
-                    <p class="">for iPhone 15 Pro and iPhone 15 Pro Max</p>
-                </div>
-            </div>
-            <div
-                id="hero-content"
-                class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
-            >
-            </div>
+<Layout
+    title="Screen Protector Application Aid - Timo Weiss"
+    heroTitle="Screen Protector Application Aid"
+    heroSubtitle="for iPhone 15 Pro and iPhone 15 Pro Max"
+>
+    <div id="info" class="flex flex-row w-full h-fit">
+        <div
+            id="info-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Info</h2>
         </div>
-        <div id="info" class="flex flex-row w-full h-fit">
-            <div
-                id="info-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Info</h2>
-            </div>
-            <div
-                id="info-content"
-                class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
-            >
-                <p class="">
-                    The Screen Protector Application Aid is a tool to help you
-                    apply a screen protector to your iPhone 15 Pro or iPhone 15
-                    Pro Max. It is designed to be easily 3D printed and makes
-                    the alignment process a lot easier. Just clip it on your
-                    phone and the screen protector will be perfectly aligned.
-                </p>
-            </div>
+        <div
+            id="info-content"
+            class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
+        >
+            <p class="">
+                The Screen Protector Application Aid is a tool to help you apply
+                a screen protector to your iPhone 15 Pro or iPhone 15 Pro Max.
+                It is designed to be easily 3D printed and makes the alignment
+                process a lot easier. Just clip it on your phone and the screen
+                protector will be perfectly aligned.
+            </p>
         </div>
-        <div id="pictures" class="flex flex-row w-full h-fit">
-            <div
-                id="pictures-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Pictures</h2>
-            </div>
-            <div
-                id="pictures-content"
-                class="w-[65%] px-28 flex flex-col space-y-12 items-start justify-center pt-12 pb-12"
-            >
-                <img
-                    src="/images/iPhoneScreenProtectorAid-5.jpg"
-                    alt="iPhone Screen Protector Aid"
-                    class="w-full border"
-                />
-                <img
-                    src="/images/iPhoneScreenProtectorAid-6.jpg"
-                    alt="iPhone Screen Protector Aid"
-                    class="w-full border"
-                />
-                <img
-                    src="/images/iPhoneScreenProtectorAid-7.jpg"
-                    alt="iPhone Screen Protector Aid"
-                    class="w-full border"
-                />
-            </div>
+    </div>
+    <div id="pictures" class="flex flex-row w-full h-fit">
+        <div
+            id="pictures-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Pictures</h2>
         </div>
-        <div id="download" class="flex flex-row w-full h-fit">
-            <div
-                id="download-sidebar"
-                class="border-r w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Download</h2>
-            </div>
-            <div
-                id="download-content"
-                class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
-            >
-                <p class="">
-                    You can download the files for your 3D Printer for free at <a
-                        href="https://www.printables.com/model/676708-iphone-15-pro-and-pro-max-screen-protector-applika"
-                        class="hover:text-rose-600"
-                        target="_blank">printables.com</a
-                    >
-                </p>
-            </div>
+        <div
+            id="pictures-content"
+            class="w-[65%] px-28 flex flex-col space-y-12 items-start justify-center pt-12 pb-12"
+        >
+            <img
+                src="/images/iPhoneScreenProtectorAid-5.jpg"
+                alt="iPhone Screen Protector Aid"
+                class="w-full border"
+            />
+            <img
+                src="/images/iPhoneScreenProtectorAid-6.jpg"
+                alt="iPhone Screen Protector Aid"
+                class="w-full border"
+            />
+            <img
+                src="/images/iPhoneScreenProtectorAid-7.jpg"
+                alt="iPhone Screen Protector Aid"
+                class="w-full border"
+            />
         </div>
-        <div id="footer" class="flex flex-row w-full h-fit">
-            <div
-                id="footer-sidebar"
-                class="border-r border-t w-[35%] flex items-start justify-center pt-12"
-            >
-                <h2 class="font-medium w-[50%]">Timo Weiss</h2>
-            </div>
-
-            <div
-                id="footer-content"
-                class="w-[65%] px-28 grid grid-cols-3 gap-5 items-start justify-center pt-12 pb-12"
-            >
-                <a href="/" class="hover:text-rose-600">Home</a>
-                <!-- <a href="/" class="hover:text-rose-600">Home</a>
-                <a href="/" class="hover:text-rose-600">Home</a> -->
-            </div>
+    </div>
+    <div id="download" class="flex flex-row w-full h-fit">
+        <div
+            id="download-sidebar"
+            class="border-r w-[35%] flex items-start justify-center pt-12"
+        >
+            <h2 class="font-medium w-[50%]">Download</h2>
         </div>
-    </main>
+        <div
+            id="download-content"
+            class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12"
+        >
+            <p class="">
+                You can download the files for your 3D Printer for free at <a
+                    href="https://www.printables.com/model/676708-iphone-15-pro-and-pro-max-screen-protector-applika"
+                    class="hover:text-rose-600"
+                    target="_blank">printables.com</a
+                >
+            </p>
+        </div>
+    </div>
 </Layout>

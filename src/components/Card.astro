@@ -26,6 +26,10 @@ const { href, title, body, image, newTab = true } = Astro.props;
         >
     </div>
     <div id={title + '-image'} class="w-[50%] flex items-center justify-center">
-        <img src={image} alt="sharemy.site" class="w-full border" />
+        <img
+            src={image}
+            alt="sharemy.site"
+            class="w-full shadow-[rgba(0,_0,_0,_0.24)_0px_2px_4px]"
+        />
     </div>
 </div>

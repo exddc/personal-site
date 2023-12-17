@@ -19,10 +19,8 @@ const { href, title, body, image, newTab = true } = Astro.props;
         <p class="">
             {body}
         </p>
-        <a
-            href={href}
-            class="hover:text-rose-600"
-            target={newTab ? '_blank' : ''}>Go visit -></a
+        <a href={href} class="button-primary" target={newTab ? '_blank' : ''}
+            >Go visit -></a
         >
     </div>
     <div id={title + '-image'} class="w-[50%] flex items-center justify-center">

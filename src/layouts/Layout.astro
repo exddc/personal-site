@@ -71,7 +71,7 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
                     id="footer-sidebar"
                     class="border-r border-t w-[35%] flex items-start justify-center pt-12"
                 >
-                    <h2 class="font-medium w-[50%]">Timo Weiss</h2>
+                    <a href="/" class="font-medium w-[50%]">Timo Weiss</a>
                 </div>
 
                 <div
@@ -165,7 +165,6 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
         font-family: 'PPNeueMontreal', system-ui, sans-serif;
         background: #ffffff;
     }
-
     code {
         font-family:
             Menlo,
@@ -176,5 +175,8 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
             Bitstream Vera Sans Mono,
             Courier New,
             monospace;
+    }
+    .button-primary {
+        @apply bg-black text-white rounded-lg text-center px-6 w-fit py-0.5 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.25)] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.6)];
     }
 </style>

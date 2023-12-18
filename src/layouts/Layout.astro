@@ -39,7 +39,7 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body class="font-light">
+    <body class="font-regular">
         <main class="flex flex-col">
             <div id="hero" class="flex flex-row w-full h-[35vh]">
                 <div
@@ -47,8 +47,8 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
                     class="border-r border-b w-[35%] flex items-center justify-center"
                 >
                     <a href="/" id="title" class="text-left w-[50%]">
-                        <h1 class="font-medium">Timo Weiss</h1>
-                        <p class="">Software Developer at Magna</p>
+                        <h1 class="font-medium text-lg">Timo Weiss</h1>
+                        <p class="font-light">Software Developer at Magna</p>
                     </a>
                 </div>
                 <div
@@ -175,8 +175,5 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
             Bitstream Vera Sans Mono,
             Courier New,
             monospace;
-    }
-    .button-primary {
-        @apply bg-black text-white rounded-lg text-center px-6 w-fit py-0.5 shadow-[inset_0_-2px_4px_rgba(255,255,255,0.25)] hover:shadow-[inset_0_-2px_4px_rgba(255,255,255,0.6)];
     }
 </style>

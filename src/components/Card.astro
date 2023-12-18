@@ -1,4 +1,7 @@
 ---
+import Button from './Button.astro';
+import { ArrowRight } from 'lucide-astro';
+
 interface Props {
     title: string;
     body: string;
@@ -16,12 +19,13 @@ const { href, title, body, image, newTab = true } = Astro.props;
         class="w-[50%] flex flex-col justify-between pr-8"
     >
         <h3 class="font-medium">{title}</h3>
-        <p class="">
+        <p class="font-light">
             {body}
         </p>
-        <a href={href} class="button-primary" target={newTab ? '_blank' : ''}
-            >Go visit -></a
-        >
+        <Button type="link" variant="primary" href={href}>
+            <p>Go visit</p>
+            <ArrowRight size={16} strokeWidth={0.75} class="ml-2" />
+        </Button>
     </div>
     <div id={title + '-image'} class="w-[50%] flex items-center justify-center">
         <img

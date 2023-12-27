@@ -46,14 +46,14 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
                     id="hero-sidebar"
                     class="border-r border-b w-[35%] flex items-center justify-center"
                 >
-                    <a href="/" id="title" class="text-left w-[50%]">
+                    <a href="/" id="title" class="text-left w-[80%] md:w-[50%]">
                         <h1 class="font-medium text-lg">Timo Weiss</h1>
                         <p class="font-light">Software Developer at Magna</p>
                     </a>
                 </div>
                 <div
                     id="hero-content"
-                    class="w-[65%] px-28 flex items-start justify-center pt-12 pb-12 flex-col"
+                    class="w-[65%] px-6 md:px-12 lg:px-28 flex items-start justify-center pt-12 pb-12 flex-col"
                 >
                     {
                         heroTitle && (
@@ -71,7 +71,9 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
                     id="footer-sidebar"
                     class="border-r border-t w-[35%] flex items-start justify-center pt-12"
                 >
-                    <a href="/" class="font-medium w-[50%]">Timo Weiss</a>
+                    <a href="/" class="font-medium w-[80%] md:w-[50%]"
+                        >Timo Weiss</a
+                    >
                 </div>
 
                 <div

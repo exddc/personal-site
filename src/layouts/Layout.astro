@@ -14,8 +14,7 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
         <meta charset="UTF-8" />
         <meta
             name="description"
-            content="Software Developer and Maker who focuses on improving
-		fundamental aspects of everyday life."
+            content="Software Developer in the Automotive Sector specializing in automated testing processes. Passionate about building practical physical products, apps, and websites."
         />
         <meta name="viewport" content="width=device-width" />
         <link
@@ -41,10 +40,10 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
     </head>
     <body class="font-regular">
         <main class="flex flex-col">
-            <div id="hero" class="flex flex-row w-full h-[35vh]">
+            <div id="hero" class="flex flex-row w-full h-[25vh]">
                 <div
                     id="hero-sidebar"
-                    class="border-r border-b w-[35%] flex items-center justify-center"
+                    class="border-r border-b w-[35%] border-slate-100 flex items-center justify-center"
                 >
                     <a href="/" id="title" class="text-left w-[80%] md:w-[50%]">
                         <h1 class="font-medium text-lg">Timo Weiss</h1>
@@ -69,7 +68,7 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
             <footer id="footer" class="flex flex-row w-full h-fit">
                 <div
                     id="footer-sidebar"
-                    class="border-r border-t w-[35%] flex items-start justify-center pt-12"
+                    class="border-r border-t w-[35%] border-slate-100 flex items-start justify-center pt-12"
                 >
                     <a href="/" class="font-medium w-[80%] md:w-[50%]"
                         >Timo Weiss</a
@@ -88,64 +87,64 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
 </html>
 <style is:global>
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Bold.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Bold.woff") format("woff");
         font-weight: bold;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-BoldItalic.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-BoldItalic.woff") format("woff");
         font-weight: bold;
         font-style: italic;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Book.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Book.woff") format("woff");
         font-weight: 900;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Italic.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Italic.woff") format("woff");
         font-weight: normal;
         font-style: italic;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Light.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Light.woff") format("woff");
         font-weight: 300;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Medium.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Medium.woff") format("woff");
         font-weight: 500;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Regular.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Regular.woff") format("woff");
         font-weight: normal;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-Thin.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-Thin.woff") format("woff");
         font-weight: 100;
         font-style: normal;
         font-display: swap;
     }
     @font-face {
-        font-family: 'PPNeueMontreal';
-        src: url('/fonts/PPNeueMontreal-ThinItalic.woff') format('woff');
+        font-family: "PPNeueMontreal";
+        src: url("/fonts/PPNeueMontreal-ThinItalic.woff") format("woff");
         font-weight: 100;
         font-style: italic;
         font-display: swap;
@@ -162,7 +161,7 @@ const { title, heroTitle, heroSubtitle } = Astro.props;
         );
     }
     html {
-        font-family: 'PPNeueMontreal', system-ui, sans-serif;
+        font-family: "PPNeueMontreal", system-ui, sans-serif;
         background: #ffffff;
     }
     code {

@@ -1,33 +1,48 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
 ---
 
 <Layout title="Timo Weiss">
     <div id="bio" class="flex flex-row w-full h-fit">
         <div
             id="bio-sidebar"
-            class="border-r w-[35%] flex items-start justify-center pt-12"
+            class="border-r w-[35%] border-slate-100 flex items-start justify-center pt-12"
         >
             <h2 class="font-medium w-[80%] md:w-[50%]">About me</h2>
         </div>
         <div
             id="bio-content"
-            class="w-[65%] px-6 md:px-12 lg:px-28 flex items-start justify-center pt-12 pb-12"
+            class="w-[65%] px-6 md:px-12 lg:px-28 flex flex-col gap-4 md:gap-8 items-start justify-center pt-12 pb-12"
         >
             <p class="font-light">
-                Software Developer in the Automotive Sector. Throughout the day
-                I work for our customers to improve their automotive testing
-                software. After work I dedicate my time on several projects -
-                some already public, others coming soon - to make a small and
-                positive impact in people's lives.
+                Software Developer in the Automotive Sector, focused on
+                automating tedious and manual testing processes. Currently, I'm
+                leading the development of automated testing software for
+                infotainment systems, designed to reduce manual testing hours
+                while enhancing overall software quality.
+            </p>
+            <p class="font-light">
+                Beyond my professional work, I focus on applying my technical
+                skills to build physical products, apps, and websites that
+                improve the small things that make everyday life more enjoyable.
+                Some of my current projects are developing a new approach to
+                doorbells, crafting my first MacOS AI app, and designing
+                beautiful websites. I love creating solutions that make life
+                easier and more productive.
+            </p>
+            <p class="font-light">
+                In my projects, I primarily utilize Python, C/C++,
+                JavaScript/TypeScript, and my newest addition, Swift. I'm
+                passionate about delivering impactful, user-friendly software
+                solutions while continuously expanding my technical depth.
             </p>
         </div>
     </div>
     <div id="projects" class="flex flex-row w-full h-fit">
         <div
             id="projects-sidebar"
-            class="border-r w-[35%] flex items-start justify-center pt-12"
+            class="border-r w-[35%] border-slate-100 flex items-start justify-center pt-12"
         >
             <h2 class="font-medium w-[80%] md:w-[50%]">Projects</h2>
         </div>
@@ -42,51 +57,13 @@ import Card from '../components/Card.astro';
                 image="/images/virtualchime2.webp"
                 href="https://virtualchime.de"
             />
-            <Card
-                title="sharemy.site"
-                body="Create a beautiful page for your links, projects and social media profiles to make it easier to share your work with others. A major version update of this project is currently in the works."
-                image="/images/sharemysite.webp"
-                href="https://sharemy.site"
-            />
-            <Card
-                title="finate.io"
-                body="Track all your investments in one place and get a clear overview of your portfolio. This project is currently in cloesd alpha testing and will be released soon."
-                image="/images/finate.webp"
-                href="https://finate.io"
-            />
-            <Card
-                title="luuma.one"
-                body="Tackle your hardest problems togehter with a friend. Build truly lasting habits with the help of your accountability partner. This project is currently in cloesd alpha testing and will be released soon."
-                image="/images/luuma.webp"
-                href="https://luuma.one"
-            />
         </div>
     </div>
-    <div id="products" class="flex flex-row w-full h-fit">
-        <div
-            id="products-sidebar"
-            class="border-r w-[35%] flex items-start justify-center pt-12"
-        >
-            <h2 class="font-medium w-[80%] md:w-[50%]">Products</h2>
-        </div>
 
-        <div
-            id="products-content"
-            class="w-[65%] px-6 md:px-12 lg:px-28 grid grid-cols-1 gap-20 items-start justify-center pt-12 pb-12"
-        >
-            <Card
-                title="Screen Protector Application Aid"
-                body="A simple aid to help you align your screen protector perfectly. Currently available for iPhone 15 Pro and iPhone 15 Pro Max. More models coming soon."
-                image="/images/iPhoneScreenProtectorAid-5.webp"
-                href="/products/screen-protector-application-aid"
-                newTab={false}
-            />
-        </div>
-    </div>
     <div id="links" class="flex flex-row w-full h-fit">
         <div
             id="links-sidebar"
-            class="border-r w-[35%] flex items-start justify-center pt-12"
+            class="border-r w-[35%] border-slate-100 flex items-start justify-center pt-12"
         >
             <h2 class="font-medium w-[50%]">Links</h2>
         </div>

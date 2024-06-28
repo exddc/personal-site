@@ -1,6 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
 ---
 
 <Layout title="Timo Weiss">
@@ -33,9 +33,10 @@ import Card from "../components/Card.astro";
             </p>
             <p class="font-light">
                 In my projects, I primarily utilize Python, C/C++,
-                JavaScript/TypeScript, and my newest addition, Swift. I'm
-                passionate about delivering impactful, user-friendly software
-                solutions while continuously expanding my technical depth.
+                JavaScript/TypeScript, and my newest additions, Swift and Rust.
+                I'm passionate about delivering impactful, user-friendly
+                software solutions while continuously expanding my technical
+                depth.
             </p>
         </div>
     </div>
@@ -52,15 +53,21 @@ import Card from "../components/Card.astro";
             class="w-[65%] px-6 md:px-12 lg:px-28 grid grid-cols-1 gap-14 lg:gap-20 items-start justify-center pt-12 pb-12"
         >
             <Card
-                title="virtualchime.de"
-                body="Combine the Intelligence of your Smartphone with the door to your home to enhance security and experience."
-                image="/images/virtualchime2.webp"
-                href="https://virtualchime.de"
+                title="virtualchime.com"
+                body="High End Open Source Smart Doorbell Systems built for the Raspberry Pi and self-hosting in mind. Currently are several doorbells deployed and in different stages of testing. Built in Python for easy customizations and contributions."
+                image="/images/hero.jpg"
+                href="https://virtualchime.com"
+            />
+            <Card
+                title="luuma.one"
+                body="A minimalistic AI Assistant for macOS that helps you focus on your work and does not take over your screen. It lives in a corner or edge of your screen and is always there when you need it. Built in Swift and SwiftUI."
+                image="/images/mac-desktop-mockup.jpg"
+                href="https://luuma.one"
             />
         </div>
     </div>
 
-    <div id="links" class="flex flex-row w-full h-fit">
+    <div id="links" class="flex flex-row w-full h-full">
         <div
             id="links-sidebar"
             class="border-r w-[35%] border-slate-100 flex items-start justify-center pt-12"
@@ -82,6 +89,14 @@ import Card from "../components/Card.astro";
                 </a>
             </div>
             <div class="grid grid-cols-1 gap-0">
+                <h4 class="font-medium">Github</h4>
+                <a
+                    href="https://github.com/exddc"
+                    class="hover:font-medium font-light"
+                    target="_blank">@exddc</a
+                >
+            </div>
+            <div class="grid grid-cols-1 gap-0">
                 <h4 class="font-medium">Instagram</h4>
                 <a
                     href="https://instagram.com/tiimoweiss"
@@ -90,11 +105,11 @@ import Card from "../components/Card.astro";
                 >
             </div>
             <div class="grid grid-cols-1 gap-0">
-                <h4 class="font-medium">Github</h4>
+                <h4 class="font-medium">LinkedIn</h4>
                 <a
-                    href="https://github.com/exddc"
+                    href="https://www.linkedin.com/in/timoweiss/"
                     class="hover:font-medium font-light"
-                    target="_blank">@exddc</a
+                    target="_blank">Timo Weiß</a
                 >
             </div>
         </div>

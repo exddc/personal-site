@@ -1,0 +1,60 @@
+import type { Metadata } from 'next';
+import { Geist } from 'next/font/google';
+import localFont from 'next/font/local';
+import './globals.css';
+import Footer from './components/Footer';
+import Header from './components/Header';
+
+const geistSans = Geist({
+    variable: '--font-geist-sans',
+    subsets: ['latin'],
+});
+
+const PPMigraItalic = localFont({
+    src: [
+        {
+            path: './fonts/PPMigra-BlackItalic.ttf',
+            weight: '900',
+            style: 'italic',
+        },
+        {
+            path: './fonts/PPMigra-ExtraboldItalic.ttf',
+            weight: '800',
+            style: 'italic',
+        },
+        {
+            path: './fonts/PPMigra-ExtralightItalic.ttf',
+            weight: '200',
+            style: 'italic',
+        },
+        {
+            path: './fonts/PPMigra-Italic.ttf',
+            weight: '400',
+            style: 'italic',
+        },
+    ],
+});
+
+export const metadata: Metadata = {
+    title: 'Timo Weiss',
+    description: 'Software Developer at HMMC',
+};
+
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <html
+            lang="en"
+            className={`${geistSans.variable} antialiased ${PPMigraItalic.className} noise bg-white w-full h-full font-sans tracking-tighter`}
+        >
+            <body className="mx-auto w-full px-4 md:px-0">
+                <Header />
+                <main className="max-w-2xl w-full mx-auto">{children}</main>
+                <Footer />
+            </body>
+        </html>
+    );
+}

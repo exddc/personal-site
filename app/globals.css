@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    width: fit-content;
+}
+
+.noise {
+    background-image: url(/noise.png);
+}

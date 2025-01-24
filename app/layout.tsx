@@ -52,7 +52,7 @@ export default function RootLayout({
         >
             <body className="mx-auto w-full px-4 md:px-0">
                 <Header />
-                <main className="max-w-2xl w-full mx-auto">{children}</main>
+                <main className="w-full mx-auto px-4">{children}</main>
                 <Footer />
             </body>
         </html>

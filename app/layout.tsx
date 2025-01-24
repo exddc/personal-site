@@ -11,6 +11,7 @@ const geistSans = Geist({
 });
 
 const PPMigraItalic = localFont({
+    variable: '--font-ppmigra-italic',
     src: [
         {
             path: './fonts/PPMigra-BlackItalic.ttf',
@@ -48,7 +49,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} antialiased ${PPMigraItalic.className} noise bg-white w-full h-full font-sans tracking-tighter`}
+            className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased noise bg-[#F3F3F1] w-full h-full tracking-tighter`}
         >
             <body className="mx-auto w-full px-4 md:px-0">
                 <Header />

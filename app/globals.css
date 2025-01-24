@@ -1,13 +1,45 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: var(--font-ppmigra-italic);
+  --font-sans: var(--font-geist-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --breakpoint-xs: 480px;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 body {
     width: fit-content;
 }
 
 .noise {
-    background-image: url(/noise.png);
+    background-image: url(/nav-noise.png);
+    background-color: rgba(255,255,255,0.5);
+    background-blend-mode: lighten;
+}
+
+.nav-noise {
+  background-image: url(/nav-noise.png);
 }
 
 .gradual-backdrop-blur {
@@ -15,10 +47,10 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 120px;
+    height: 150px;
     backdrop-filter: blur(20px);
-    -webkit-mask-image: linear-gradient(black 20%, transparent);
-    mask-image: linear-gradient(black 20%, transparent);
+    -webkit-mask-image: linear-gradient(black 30%, transparent);
+    mask-image: linear-gradient(black 30%, transparent);
     pointer-events: none;
     opacity: 1;
     z-index: -1;

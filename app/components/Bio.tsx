@@ -26,7 +26,7 @@ export default function ShortBio() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="max-w-2xl mx-auto bg-white p-[1px] rounded-[51px]"
+            className="max-w-2xl mx-auto"
         >
             <section
                 id="bio"

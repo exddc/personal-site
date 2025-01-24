@@ -7,7 +7,7 @@ const containerVariants = {
         scaleX: 0,
         opacity: 0,
         originX: 0.5,
-        y: -50,
+        y: -20,
     },
     visible: {
         scaleX: 1,
@@ -15,7 +15,7 @@ const containerVariants = {
         y: 0,
         transition: {
             delay: 0.5,
-            duration: 1.2,
+            duration: 1.3,
             ease: 'easeInOut',
         },
     },
@@ -47,7 +47,7 @@ const linkVariants = {
 };
 
 const linkClassName =
-    'text-center pt-[2px] bg-white rounded-3xl border border-solid border-neutral-50 shadow-[1px_2px_2px_rgba(0,0,0,0.38)] w-[100px] h-[31px] text-base tracking-tighter';
+    'text-center pt-[2px] bg-[#F3F3F1] rounded-[25px] border-[1px] border-solid border-[#908A7B]/50 inset-shadow-[2px_4px_2px_rgba(256,256,256,1)] shadow-[2px_3px_3px_rgba(0,0,0,0.45)] w-[100px] h-[35px] text-base font-normal tracking-tighter flex items-center justify-center text-[#76726A]';
 
 export default function Header() {
     return (
@@ -56,14 +56,14 @@ export default function Header() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="max-w-xl mx-auto bg-white p-[1px] rounded-[51px]"
+                className="max-w-xl mx-auto bg-[#F3F3F1] p-[1px] rounded-[51px]"
             >
                 <div className="gradual-backdrop-blur"></div>
                 <motion.nav
                     variants={navVariants}
                     initial="hidden"
                     animate="visible"
-                    className="flex flex-row justify-between items-center h-[56px] px-1.5 text-base tracking-tight text-black whitespace-nowrap border border-[#E2E2E2]border-solid bg-[#D6D5D3] rounded-[50px] noise"
+                    className="flex flex-row justify-between items-center h-[56px] px-[12px] text-base tracking-tight text-black whitespace-nowrap border-[#E2E2E2] border-solid border-[1px] bg-[#D6D5D3] rounded-[50px] nav-noise inset-shadow-[2px_3px_3px_rgba(0,0,0,0.40)]"
                 >
                     <motion.a
                         variants={linkVariants}

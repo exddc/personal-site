@@ -6,7 +6,7 @@ import Links from './components/Links';
 export default function Home() {
     return (
         <div className="grid grid-cols-1">
-            <div className="h-screen flex flex-col gap-[20vh] items-center justify-center">
+            <div className="h-[95vh] flex flex-col gap-[20vh] items-center justify-center">
                 <Hero />
                 <ShortBio />
             </div>

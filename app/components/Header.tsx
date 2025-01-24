@@ -63,7 +63,7 @@ export default function Header() {
                     variants={navVariants}
                     initial="hidden"
                     animate="visible"
-                    className="flex flex-row justify-between items-center h-[43px] px-1.5 text-base tracking-tight text-black whitespace-nowrap border border-gray-200 border-solid bg-neutral-50 rounded-[50px] noise shadow-sm"
+                    className="flex flex-row justify-between items-center h-[56px] px-1.5 text-base tracking-tight text-black whitespace-nowrap border border-[#E2E2E2]border-solid bg-[#D6D5D3] rounded-[50px] noise"
                 >
                     <motion.a
                         variants={linkVariants}

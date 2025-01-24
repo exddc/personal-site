@@ -30,7 +30,7 @@ export default function Hero() {
             id="hero-container"
         >
             <div id="hero" className="mx-auto w-fit text-center">
-                <h1 className="italic font-serif text-6xl">Timo Weiss</h1>
+                <h1 className="italic font-serif text-7xl">Timo Weiss</h1>
                 <ScrambleIn
                     text="Software Developer at HMMC"
                     className="font-light tracking-tighter text-lg"

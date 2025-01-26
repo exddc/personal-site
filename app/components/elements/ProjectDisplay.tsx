@@ -18,8 +18,8 @@ export default function ProjectDisplay(props: {
                 />
             </div>
 
-            <div className="rounded-lg bg-[#F3F3F1] mt-[12px] text-sm  p-2.5 w-full border-[1px] border-solid border-[#908A7B]/50 shadow-[2px_3px_3px_rgba(0,0,0,0.45)] h-[40px] transition-all duration-500 ">
-                <div className="flex justify-between">
+            <div className="rounded-lg bg-[#F3F3F1] mt-[12px] text-sm p-2.5 w-full border-[1px] border-solid border-[#908A7B]/50 shadow-[2px_3px_3px_rgba(0,0,0,0.45)] h-fit transition-all duration-500 ">
+                <div className="flex flex-col sm:flex-row justify-between">
                     <a href={props.link}>
                         <CenterUnderline
                             label={

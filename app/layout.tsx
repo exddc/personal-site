@@ -49,9 +49,9 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased noise bg-[#F3F3F1] w-full h-full tracking-tighter`}
+            className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased noise bg-[#F3F3F1] w-full h-full tracking-tight`}
         >
-            <body className="mx-auto w-full px-4 md:px-0">
+            <body className="w-full mx-auto">
                 <Header />
                 <main className="w-full mx-auto px-4">{children}</main>
                 <Footer />

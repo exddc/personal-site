@@ -28,10 +28,6 @@
   }
 }
 
-body {
-    width: fit-content;
-}
-
 .noise {
     background-image: url(/nav-noise.png);
     background-color: rgba(255,255,255,0.5);

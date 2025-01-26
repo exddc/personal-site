@@ -33,7 +33,7 @@ export default function LatestProjects() {
                 id="latest-projects"
                 className="max-w-[90rem] text-center w-full mx-auto flex flex-col gap-6 text-balance text-lg"
             >
-                <h2 className="font-serif text-5xl">Latest Projects</h2>
+                <h2 className="font-serif italic text-5xl">Latest Projects</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <ProjectDisplay
                         title="Got Done"
@@ -63,7 +63,7 @@ export default function LatestProjects() {
                 </div>
                 <Link
                     href="/projects"
-                    className="font-serif text-2xl w-fit mx-auto"
+                    className="font-serif italic text-2xl w-fit mx-auto"
                 >
                     <CenterUnderline
                         label="See more"

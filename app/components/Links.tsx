@@ -33,7 +33,7 @@ export default function Links() {
                 id="links"
                 className="text-center mx-auto flex flex-col gap-6 text-balance text-lg"
             >
-                <h2 className="font-serif text-5xl">Links</h2>
+                <h2 className="font-serif italic text-5xl">Links</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <LinkElement
                         title="GitHub"

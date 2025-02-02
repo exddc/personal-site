@@ -1,118 +1,79 @@
 'use client';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import CenterUnderline from './Fancy-Underline-Center';
 
-import { s } from 'framer-motion/client';
-import { motion } from 'motion/react';
+export default function Header(animateTitle: boolean = true) {
+    const [showBorder, setShowBorder] = useState(false);
+    const [showTitle, setShowTitle] = useState(false);
 
-const containerVariants = {
-    hidden: {
-        scaleX: 1,
-        opacity: 0,
-        originX: 0,
-        y: -20,
-    },
-    visible: {
-        scaleX: 1,
-        opacity: 1,
-        y: 0,
-        transition: {
-            delay: 0.5,
-            duration: 1.3,
-            ease: 'easeInOut',
-        },
-    },
-    scroll: {
-        scaleX: 10,
-    },
-};
+    useEffect(() => {
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                setShowBorder(true);
+                setShowTitle(true);
+            } else {
+                setShowBorder(false);
+                if (animateTitle) {
+                    setShowTitle(false);
+                } else {
+                    setShowTitle(true);
+                }
+            }
+        }
 
-const navVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.2,
-            delayChildren: 1.2,
-        },
-    },
-};
+        window.addEventListener('scroll', handleScroll);
 
-const linkVariants = {
-    hidden: {
-        opacity: 0,
-        y: -5,
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.8,
-            ease: 'easeOut',
-        },
-    },
-};
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
-const linkClassName =
-    'text-center pt-[2px] bg-[#F3F3F1] rounded-[25px] border-[1px] border-solid border-[#908A7B]/50 inset-shadow-[2px_4px_2px_rgba(256,256,256,1)] shadow-[2px_3px_3px_rgba(0,0,0,0.45)] w-[100px] h-[35px] text-base font-normal tracking-tight flex items-center justify-center text-[#76726A]';
-
-export default function Header() {
     return (
-        <header className="w-full mx-auto pt-4 top-0 sticky z-40 px-4 md:px-0">
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="max-w-xl mx-auto bg-[#F3F3F1] p-[1px] rounded-[51px]"
+        <header className="sticky top-0 z-50">
+            <div
+                className={
+                    `px-8 py-4 transition-all duration-700 border-b` +
+                    (showBorder
+                        ? ' border-neutral-200 bg-transparent backdrop-blur-lg  bg-opacity-60'
+                        : ' border-transparent')
+                }
             >
-                <div className="gradual-backdrop-blur"></div>
-                <motion.nav
-                    variants={navVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex flex-row justify-between items-center h-[52px] px-[8px] text-base tracking-tight text-black whitespace-nowrap border-[#E2E2E2] border-solid border-[1px] bg-[#D6D5D3] rounded-[50px] nav-noise inset-shadow-[2px_3px_3px_rgba(0,0,0,0.40)]"
-                >
-                    <motion.a
-                        variants={linkVariants}
+                <div className="flex flex-row justify-between">
+                    <Link
                         href="/"
-                        className={linkClassName}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{
-                            type: 'spring',
-                            stiffness: 300,
-                            damping: 15,
-                        }}
+                        className={
+                            'font-normal font-serif italic text-xl justify-center items-center flex transition-all duration-700' +
+                            (showTitle ? ' text-black' : ' text-transparent')
+                        }
                     >
-                        Home
-                    </motion.a>
-                    <motion.a
-                        variants={linkVariants}
-                        href="/"
-                        className={linkClassName}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{
-                            type: 'spring',
-                            stiffness: 300,
-                            damping: 15,
-                        }}
-                    >
-                        Projects
-                    </motion.a>
-                    <motion.a
-                        variants={linkVariants}
-                        href="/"
-                        className={linkClassName}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{
-                            type: 'spring',
-                            stiffness: 300,
-                            damping: 15,
-                        }}
-                    >
-                        About
-                    </motion.a>
-                </motion.nav>
-            </motion.div>
+                        Timo Weiss
+                    </Link>
+                    <div className="flex flex-row font-normal text-base gap-4 tracking-tight">
+                        <Link href="/projects" className="text-black">
+                            <CenterUnderline
+                                label="Home"
+                                underlineHeightRatio={0.05}
+                                underlinePaddingRatio={-0.2}
+                            />
+                        </Link>
+                        <Link href="/projects" className="text-black">
+                            <CenterUnderline
+                                label="Projects"
+                                underlineHeightRatio={0.05}
+                                underlinePaddingRatio={-0.2}
+                            />
+                        </Link>
+                        <Link href="/projects" className="text-black">
+                            <CenterUnderline
+                                label="About"
+                                underlineHeightRatio={0.05}
+                                underlinePaddingRatio={-0.2}
+                            />
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </header>
     );
 }

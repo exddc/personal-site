@@ -55,16 +55,6 @@ export default function Links() {
                         label="@tiimoweiss"
                         link="https://instagram.com/tiimoweiss"
                     />
-                    <LinkElement
-                        title="Printables"
-                        label="@TimoWeiss_1549182"
-                        link="https://www.printables.com/@TimoWeiss_1549182"
-                    />
-                    <LinkElement
-                        title="E-Mail"
-                        label="timo.weiss@pm.me"
-                        link="mailto:timo.weiss@pm.me"
-                    />
                 </div>
             </section>
         </motion.div>

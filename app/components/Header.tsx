@@ -1,12 +1,13 @@
 'use client';
 
+import { s } from 'framer-motion/client';
 import { motion } from 'motion/react';
 
 const containerVariants = {
     hidden: {
-        scaleX: 0,
+        scaleX: 1,
         opacity: 0,
-        originX: 0.5,
+        originX: 0,
         y: -20,
     },
     visible: {
@@ -18,6 +19,9 @@ const containerVariants = {
             duration: 1.3,
             ease: 'easeInOut',
         },
+    },
+    scroll: {
+        scaleX: 10,
     },
 };
 

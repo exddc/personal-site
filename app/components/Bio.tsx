@@ -30,19 +30,22 @@ export default function ShortBio() {
         >
             <section
                 id="bio"
-                className="text-center max-w-xl mx-auto flex flex-col gap-6 text-balance text-lg"
+                className="text-center max-w-xl mx-auto flex flex-col gap-12 text-balance text-lg"
             >
                 <h2 className="font-serif italic text-5xl">About Me</h2>
-                <p>
-                    In the digital world I'm building a wide spectrum of
-                    Projects ranging from iOS and MacOS Apps to Websites and
-                    Webapps with complex backends that incorporate multiple
-                    Pipelines, AI systems and distributed services.
-                </p>
-                <p>
-                    In the physical world I love Projects that involve 3D
-                    Printing, electrical engineering or tool making.
-                </p>
+                <div className="flex flex-col gap-4">
+                    <p>
+                        In the digital world I'm building a wide spectrum of
+                        Projects ranging from iOS and MacOS Apps to Websites and
+                        Webapps with complex backends that incorporate multiple
+                        Pipelines, AI systems and distributed services.
+                    </p>
+                    <p>
+                        In the physical world I love Projects that involve 3D
+                        Printing, electrical engineering or tool making.
+                    </p>
+                </div>
+
                 <a
                     href="/about"
                     className="font-serif italic text-2xl w-fit mx-auto"

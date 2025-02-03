@@ -31,7 +31,7 @@ export default function LatestProjects() {
         >
             <section
                 id="latest-projects"
-                className="max-w-[90rem] text-center w-full mx-auto flex flex-col gap-6 text-balance text-lg"
+                className="max-w-[90rem] text-center w-full mx-auto flex flex-col gap-12 text-balance text-lg"
             >
                 <h2 className="font-serif italic text-5xl">Latest Projects</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

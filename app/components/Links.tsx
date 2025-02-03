@@ -31,7 +31,7 @@ export default function Links() {
         >
             <section
                 id="links"
-                className="text-center mx-auto flex flex-col gap-6 text-balance text-lg"
+                className="text-center mx-auto flex flex-col gap-12 text-balance text-lg"
             >
                 <h2 className="font-serif italic text-5xl">Links</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

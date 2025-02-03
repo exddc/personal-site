@@ -1,5 +1,6 @@
 'use client';
 import CenterUnderline from '../Fancy-Underline-Center';
+import Link from 'next/link';
 
 export default function LinkElement(props: {
     title: string;
@@ -7,10 +8,10 @@ export default function LinkElement(props: {
     link: string;
 }) {
     return (
-        <div className="flex justify-center items-center p-[12px] text-base tracking-tight text-black whitespace-nowrap border-[#E2E2E2] border-solid border-[1px] bg-[#D6D5D3] rounded-xl nav-noise inset-shadow-[2px_3px_3px_rgba(0,0,0,0.40)]">
-            <a
+        <div className="flex justify-center items-center p-[12px] text-base tracking-tight text-black whitespace-nowrap border-[#E2E2E2] border-solid border-[1px] backdrop-blur-sm rounded-xl inset-shadow-[2px_3px_3px_rgba(0,0,0,0.40)]">
+            <Link
                 href={props.link}
-                className="rounded-lg bg-[#F3F3F1] text-base p-2.5 border-[1px] border-solid border-[#908A7B]/50 shadow-[2px_3px_3px_rgba(0,0,0,0.45)] h-[40px] transition-all duration-500 font-light w-[400px] cursor-pointer"
+                className="rounded-lg bg-[#F3F3F1] text-base p-2.5 border-[1px] border-solid border-[#908A7B]/50 shadow-[2px_3px_3px_rgba(0,0,0,0.45)] h-[40px] transition-all duration-500 font-light w-[400px] cursor-pointer  hover:scale-[99%]"
             >
                 <div className="flex justify-between mt-[-2px]">
                     <p className="font-medium">{props.title}</p>
@@ -21,7 +22,7 @@ export default function LinkElement(props: {
                         underlinePaddingRatio={-0.2}
                     />
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }

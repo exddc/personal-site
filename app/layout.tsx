@@ -49,10 +49,10 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased noise bg-[#F3F3F1] w-full h-full tracking-tight`}
+            className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased noise bg-[#f8f8f8] w-full h-full tracking-tight`}
         >
             <body className="w-full mx-auto">
-                <Header />
+                <Header animateTitle={true} />
                 <main className="w-full mx-auto px-4">{children}</main>
                 <Footer />
             </body>

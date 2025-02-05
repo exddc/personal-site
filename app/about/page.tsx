@@ -1,10 +1,10 @@
 'use client';
-import { Bio } from '@/app/components/Bio';
+import { Bio } from '@/components/Bio';
 import {
     Announcement,
     AnnouncementTag,
     AnnouncementTitle,
-} from '../components/UI/annoucement';
+} from '@/components/UI/annoucement';
 
 export default function About() {
     return (

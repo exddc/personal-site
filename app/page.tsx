@@ -1,7 +1,7 @@
-import Hero from './components/Hero';
-import { ShortBio } from './components/Bio';
-import LatestProjects from './components/LatestProjects';
-import Links from './components/Links';
+import Hero from '@/components/Hero';
+import { ShortBio } from '@/components/Bio';
+import LatestProjects from '@/components/LatestProjects';
+import Links from '@/components/Links';
 
 export default function Home() {
     return (

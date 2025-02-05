@@ -1,15 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import CenterUnderline from './Fancy-Underline-Center';
 
-export default function Header(animateTitle: boolean = false) {
-    const [showBorder, setShowBorder] = useState(animateTitle);
-    const [showTitle, setShowTitle] = useState(animateTitle);
+export default function Header() {
+    const pathname = usePathname();
+    const isHome = pathname === '/';
+
+    const [showBorder, setShowBorder] = useState(!isHome);
+    const [showTitle, setShowTitle] = useState(!isHome);
 
     useEffect(() => {
-        function handleScroll() {
-            if (animateTitle) {
+        if (!isHome) {
+            setShowTitle(true);
+            setShowBorder(true);
+        } else {
+            function handleScroll() {
                 if (window.scrollY > 50) {
                     setShowBorder(true);
                     setShowTitle(true);
@@ -18,14 +25,12 @@ export default function Header(animateTitle: boolean = false) {
                     setShowTitle(false);
                 }
             }
+            window.addEventListener('scroll', handleScroll);
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
         }
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    }, [isHome]);
 
     return (
         <header className="sticky top-0 z-50">

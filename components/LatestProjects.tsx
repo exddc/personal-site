@@ -41,24 +41,26 @@ export default function LatestProjects() {
                         buildStack="iOS App - Swift & SwiftUI"
                         image="https://static.timoweiss.me/16.jpg"
                     />
+
                     <ProjectDisplay
-                        title="Animated Blurry Blob Background Generator"
-                        link="https://blurry-blob-background.timoweiss.me"
-                        buildStack="Web App - TypeScript & Next.js"
-                        image="https://static.timoweiss.me/website-showcase-3.jpg"
+                        title="Domain Generator"
+                        link="https://domain-generator.timoweiss.me"
+                        buildStack="Web App - TypeScript, Next.js, Python & FastAPI"
+                        image="https://static.timoweiss.me/domain-generator-showcase.jpg"
                     />
 
                     <ProjectDisplay
-                        title="Got Done"
-                        link="https://gotdoneapp.com"
-                        buildStack="iOS App - Swift & SwiftUI"
-                        image="https://static.timoweiss.me/16.jpg"
-                    />
-                    <ProjectDisplay
                         title="Animated Blurry Blob Background Generator"
                         link="https://blurry-blob-background.timoweiss.me"
                         buildStack="Web App - TypeScript & Next.js"
-                        image="https://static.timoweiss.me/website-showcase-3.jpg"
+                        image="https://static.timoweiss.me/blurry-blob-background-showcase.jpg"
+                    />
+
+                    <ProjectDisplay
+                        title="virtual chime"
+                        link="https://virtualchime.com"
+                        buildStack="Hardware and Software - Python, MQTT, Raspberry Pi, 3D Printing"
+                        image="https://static.timoweiss.me/virtualchime-showcase.jpg"
                     />
                 </div>
                 <Link

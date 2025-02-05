@@ -11,7 +11,7 @@ export default function ProjectDisplay(props: {
 }) {
     return (
         <div className="flex flex-col justify-between items-center text-base tracking-tight text-black whitespace-nowrap border-[#908A7B]/50 border-solid border-[1px] backdrop-blur-sm rounded-xl p-[4px]">
-            <div className="overflow-hidden rounded-lg hover:scale-[99%] transition-all duration-300 border-[1px] border-solid border-[#908A7B]/50 bg-[#F3F3F1] h-fit">
+            <div className="overflow-hidden rounded-lg hover:rounded-md hover:scale-[99%] transition-all duration-300 border-[1px] border-solid border-[#908A7B]/50 bg-[#F3F3F1] h-fit">
                 <img
                     src={props.image}
                     alt={props.title + ' Showcase'}
@@ -30,7 +30,7 @@ export default function ProjectDisplay(props: {
                             underlinePaddingRatio={-0.2}
                         />
                     </Link>
-                    <p>{props.buildStack}</p>
+                    <p className="text-balance">{props.buildStack}</p>
                 </div>
             </div>
         </div>

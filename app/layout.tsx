@@ -52,7 +52,7 @@ export default function RootLayout({
             className={`${geistSans.variable} ${PPMigraItalic.variable} antialiased bg-[#f8f8f8] w-full h-full tracking-tight`}
         >
             <body className="w-full mx-auto">
-                <Header animateTitle={true} />
+                <Header />
                 <main className="w-full mx-auto px-4">{children}</main>
                 <Footer />
             </body>

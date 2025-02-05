@@ -3,21 +3,19 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import CenterUnderline from './Fancy-Underline-Center';
 
-export default function Header(animateTitle: boolean = true) {
-    const [showBorder, setShowBorder] = useState(false);
-    const [showTitle, setShowTitle] = useState(false);
+export default function Header(animateTitle: boolean = false) {
+    const [showBorder, setShowBorder] = useState(animateTitle);
+    const [showTitle, setShowTitle] = useState(animateTitle);
 
     useEffect(() => {
         function handleScroll() {
-            if (window.scrollY > 50) {
-                setShowBorder(true);
-                setShowTitle(true);
-            } else {
-                setShowBorder(false);
-                if (animateTitle) {
-                    setShowTitle(false);
-                } else {
+            if (animateTitle) {
+                if (window.scrollY > 50) {
+                    setShowBorder(true);
                     setShowTitle(true);
+                } else {
+                    setShowBorder(false);
+                    setShowTitle(false);
                 }
             }
         }
@@ -50,7 +48,7 @@ export default function Header(animateTitle: boolean = true) {
                         Timo Weiss
                     </Link>
                     <div className="flex flex-row font-normal text-base gap-4 tracking-tight">
-                        <Link href="/projects" className="text-black">
+                        <Link href="/" className="text-black">
                             <CenterUnderline
                                 label="Home"
                                 underlineHeightRatio={0.05}
@@ -64,7 +62,7 @@ export default function Header(animateTitle: boolean = true) {
                                 underlinePaddingRatio={-0.2}
                             />
                         </Link>
-                        <Link href="/projects" className="text-black">
+                        <Link href="/about" className="text-black">
                             <CenterUnderline
                                 label="About"
                                 underlineHeightRatio={0.05}

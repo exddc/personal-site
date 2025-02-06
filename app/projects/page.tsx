@@ -42,7 +42,7 @@ export default function Projects() {
             </p>
             <Link
               href="https://gotdoneapp.com"
-              className="mx-auto w-fit font-serif text-xl italic"
+              className="mx-auto w-fit font-serif text-xl text-[#660708] italic"
             >
               <CenterUnderline
                 label="Check it out"
@@ -86,7 +86,7 @@ export default function Projects() {
             </p>
             <Link
               href="https://domain-generator.timoweiss.me"
-              className="mx-auto w-fit font-serif text-xl italic"
+              className="mx-auto w-fit font-serif text-xl text-[#660708] italic"
             >
               <CenterUnderline
                 label="Check it out"
@@ -128,7 +128,7 @@ export default function Projects() {
             </p>
             <Link
               href="https://blurry-blob-background.timoweiss.me"
-              className="mx-auto w-fit font-serif text-xl italic"
+              className="mx-auto w-fit font-serif text-xl text-[#660708] italic"
             >
               <CenterUnderline
                 label="Check it out"
@@ -172,7 +172,7 @@ export default function Projects() {
             </p>
             <Link
               href="https://virtualchime.com"
-              className="mx-auto w-fit font-serif text-xl italic"
+              className="mx-auto w-fit font-serif text-xl text-[#660708] italic"
             >
               <CenterUnderline
                 label="Check it out"

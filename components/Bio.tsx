@@ -42,7 +42,10 @@ export function ShortBio() {
           </p>
         </div>
 
-        <a href="/about" className="mx-auto w-fit font-serif text-2xl italic">
+        <a
+          href="/about"
+          className="mx-auto w-fit font-serif text-2xl text-[#660708] italic"
+        >
           <CenterUnderline
             label="Learn more"
             underlineHeightRatio={0.05}

@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import { ShortBio } from "@/components/Bio";
 import LatestProjects from "@/components/LatestProjects";
 import Links from "@/components/Links";
+import { Contact } from "@/components/Contact";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </div>
       <LatestProjects />
       <Links />
+      <Contact />
     </div>
   );
 }

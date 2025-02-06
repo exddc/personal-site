@@ -4,6 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Bio } from "@/components/Bio";
 import { Announcement, AnnouncementTitle } from "@/components/UI/annoucement";
+import { Contact } from "@/components/Contact";
 
 export default function About() {
   const skills = [
@@ -95,6 +96,7 @@ export default function About() {
           ))}
         </div>
       </section>
+      <Contact />
     </div>
   );
 }

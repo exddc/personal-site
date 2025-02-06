@@ -66,7 +66,7 @@ export default function LatestProjects() {
         </div>
         <Link
           href="/projects"
-          className="mx-auto w-fit font-serif text-2xl italic"
+          className="mx-auto w-fit font-serif text-2xl text-[#660708] italic"
         >
           <CenterUnderline
             label="See more"

@@ -54,22 +54,22 @@ export default function Header() {
           >
             Timo Weiss
           </Link>
-          <div className="flex flex-row gap-4 text-base font-normal tracking-tight">
-            <Link href="/" className="text-black">
+          <div className="flex flex-row gap-4 text-base font-normal tracking-tight text-[#660708]">
+            <Link href="/">
               <CenterUnderline
                 label="Home"
                 underlineHeightRatio={0.05}
                 underlinePaddingRatio={-0.2}
               />
             </Link>
-            <Link href="/projects" className="text-black">
+            <Link href="/projects">
               <CenterUnderline
                 label="Projects"
                 underlineHeightRatio={0.05}
                 underlinePaddingRatio={-0.2}
               />
             </Link>
-            <Link href="/about" className="text-black">
+            <Link href="/about">
               <CenterUnderline
                 label="About"
                 underlineHeightRatio={0.05}

@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --font-serif: var(--font-ppmigra-italic);
@@ -29,9 +29,9 @@
 }
 
 .noise {
-    background-image: url(/nav-noise.png);
-    background-color: rgba(255,255,255,0.5);
-    background-blend-mode: lighten;
+  background-image: url(/nav-noise.png);
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: lighten;
 }
 
 .nav-noise {
@@ -39,15 +39,15 @@
 }
 
 .gradual-backdrop-blur {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    backdrop-filter: blur(20px);
-    -webkit-mask-image: linear-gradient(black 30%, transparent);
-    mask-image: linear-gradient(black 30%, transparent);
-    pointer-events: none;
-    opacity: 1;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(black 30%, transparent);
+  mask-image: linear-gradient(black 30%, transparent);
+  pointer-events: none;
+  opacity: 1;
+  z-index: -1;
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge, type BadgeProps } from './badge';
 import { cn } from '@/lib/utils';
 import { type HTMLAttributes, createContext, useContext } from 'react';

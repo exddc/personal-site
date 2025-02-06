@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'motion/react';
 
 import CenterUnderline from './Fancy-Underline-Center';
@@ -68,10 +69,11 @@ export function Bio() {
                 <h2 className="font-serif italic text-5xl">About Me</h2>
                 <div className="flex flex-col gap-4">
                     <p>
-                        I'm a Full Stack Software Developer with multiple years
-                        of experience working on a wide spectrum of Projects
-                        ranging from iOS and MacOS Apps to Websites and Software
-                        with complex Backends, distributed services and AI.
+                        I&apos;m a Full Stack Software Developer with multiple
+                        years of experience working on a wide spectrum of
+                        Projects ranging from iOS and MacOS Apps to Websites and
+                        Software with complex Backends, distributed services and
+                        AI.
                     </p>
                     <p>
                         Beyond coding, I try to expand my horizon by working on

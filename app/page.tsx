@@ -1,3 +1,4 @@
+import React from 'react';
 import Hero from '@/components/Hero';
 import { ShortBio } from '@/components/Bio';
 import LatestProjects from '@/components/LatestProjects';

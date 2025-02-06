@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Footer() {
     return (
         <footer className="pt-48 pb-12 mx-auto w-fit text-center flex flex-col">

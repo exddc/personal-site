@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { motion, ValueAnimationTransition } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 
 interface UnderlineProps {
     label: string;
     className?: string;
-    transition?: ValueAnimationTransition;
+    transition?: any /* eslint-disable-line @typescript-eslint/no-explicit-any */;
     onClick?: () => void;
     underlineHeightRatio?: number;
     underlinePaddingRatio?: number;

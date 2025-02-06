@@ -1,11 +1,9 @@
 'use client';
+
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Bio } from '@/components/Bio';
-import {
-    Announcement,
-    AnnouncementTag,
-    AnnouncementTitle,
-} from '@/components/UI/annoucement';
+import { Announcement, AnnouncementTitle } from '@/components/UI/annoucement';
 
 export default function About() {
     const skills = [
@@ -50,7 +48,7 @@ export default function About() {
 
     const [rows, setRows] = useState<string[][]>([]);
     useEffect(() => {
-        let rowCounts: number[] = [];
+        const rowCounts: number[] = [];
         let sum = 0;
         let i = 0;
         while (sum < skills.length) {

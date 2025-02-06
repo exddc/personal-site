@@ -38,7 +38,31 @@ const PPMigraItalic = localFont({
 
 export const metadata: Metadata = {
     title: 'Timo Weiss',
-    description: 'Software Developer at HMMC',
+    description: 'Software Developer working on a wide spectrum of Projects',
+    openGraph: {
+        title: 'Timo Weiss',
+        description:
+            'Software Developer working on a wide spectrum of Projects',
+        url: 'https://timoweiss.me',
+        type: 'website',
+        images: [
+            {
+                url: 'https://timoweiss.me/og-image.jpg',
+                width: 1200,
+                height: 600,
+                alt: 'Timo Weiss',
+            },
+        ],
+    },
+    twitter: {
+        title: 'Timo Weiss',
+        description:
+            'Software Developer working on a wide spectrum of Projects',
+        images: ['https://timoweiss.me/og-image.jpg'],
+        card: 'summary_large_image',
+        creator: '@timooweiss',
+    },
+    icons: '/icon.png',
 };
 
 export default function RootLayout({

@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Script from 'next/script';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -81,6 +82,11 @@ export default function RootLayout({
                 <main className="w-full mx-auto px-4">{children}</main>
                 <Footer />
             </body>
+            <Script
+                defer
+                data-domain="timoweiss.me"
+                src="https://plausible.io/js/script.js"
+            ></Script>
         </html>
     );
 }

@@ -4,6 +4,7 @@ import { ShortBio } from "@/components/Bio";
 import LatestProjects from "@/components/LatestProjects";
 import Links from "@/components/Links";
 import { Contact } from "@/components/Contact";
+import Services from "@/components/Services";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       </div>
       <LatestProjects />
       <Links />
+      <Services />
       <Contact />
     </div>
   );

@@ -69,6 +69,13 @@ export default function Header() {
                 underlinePaddingRatio={-0.2}
               />
             </Link>
+            <Link href="/services">
+              <CenterUnderline
+                label="Services"
+                underlineHeightRatio={0.05}
+                underlinePaddingRatio={-0.2}
+              />
+            </Link>
             <Link href="/about">
               <CenterUnderline
                 label="About"

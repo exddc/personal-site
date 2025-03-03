@@ -2,6 +2,7 @@
 
 import React from "react";
 import CenterUnderline from "@/components/Fancy-Underline-Center";
+import { Contact } from "@/components/Contact";
 import Link from "next/link";
 
 export default function Projects() {
@@ -183,6 +184,7 @@ export default function Projects() {
           </div>
         </div>
       </section>
+      <Contact />
     </div>
   );
 }

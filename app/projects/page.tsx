@@ -13,6 +13,48 @@ export default function Projects() {
         className="mx-auto flex w-full max-w-[90rem] flex-col gap-36 text-center text-lg text-balance"
       >
         <h2 className="font-serif text-5xl italic">Projects</h2>
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2" dir="rtl">
+          <div className="flex flex-col items-center justify-between rounded-xl border-[1px] border-solid border-[#908A7B]/50 p-[4px] text-base tracking-tight whitespace-nowrap text-black backdrop-blur-sm">
+            <div className="h-fit overflow-hidden rounded-lg border-[1px] border-solid border-[#908A7B]/50 bg-[#F3F3F1] transition-all duration-300 hover:scale-[99%] hover:rounded-md">
+              <img
+                src="https://static.timoweiss.me/website-showcase-3.jpg"
+                alt="Box Grid Generator"
+                className="transition-all duration-300 hover:scale-105"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="flex flex-col">
+              <h3 className="mx-auto w-fit font-serif text-3xl italic">
+                Box Grid Generator
+              </h3>
+              <p className="text-sm font-light">
+                Web App - TypeScript, Next.js & Three.js
+              </p>
+            </div>
+            <p>
+              App to fill a Space with a 3D printable Grid of Boxes. The Grid is
+              customizable and has a interactive 3D Viewer. The Model can be
+              downloaded as STL for 3D Printing or shared as a Link.
+            </p>
+            <p>
+              Built with TypeScript, Next.js and Three.js. The 3D Model is
+              generated with Three.js and the STL File is generated with
+              Three.js-STL-Exporter.
+            </p>
+            <Link
+              href="https://box-grid.timoweiss.me"
+              className="mx-auto w-fit font-serif text-xl text-[#660708] italic"
+            >
+              <CenterUnderline
+                label="Check it out"
+                underlineHeightRatio={0.05}
+                underlinePaddingRatio={-0.2}
+              />
+            </Link>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <div className="flex flex-col items-center justify-between rounded-xl border-[1px] border-solid border-[#908A7B]/50 p-[4px] text-base tracking-tight whitespace-nowrap text-black backdrop-blur-sm">
             <div className="h-fit overflow-hidden rounded-lg border-[1px] border-solid border-[#908A7B]/50 bg-[#F3F3F1] transition-all duration-300 hover:scale-[99%] hover:rounded-md">

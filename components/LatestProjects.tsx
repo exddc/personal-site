@@ -37,6 +37,13 @@ export default function LatestProjects() {
         <h2 className="font-serif text-5xl italic">Latest Projects</h2>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <ProjectDisplay
+            title="Box Grid Generator"
+            link="https://box-grid.timoweiss.me"
+            buildStack="Web App - TypeScript, Next.js & Three.js"
+            image="https://static.timoweiss.me/website-showcase-3.jpg"
+          />
+
+          <ProjectDisplay
             title="Got Done"
             link="https://gotdoneapp.com"
             buildStack="iOS App - Swift & SwiftUI"
@@ -57,12 +64,12 @@ export default function LatestProjects() {
             image="https://static.timoweiss.me/blurry-blob-background-showcase.jpg"
           />
 
-          <ProjectDisplay
+          {/* <ProjectDisplay
             title="virtual chime"
             link="https://virtualchime.com"
             buildStack="Hardware and Software - Python, MQTT, Raspberry Pi, 3D Printing"
             image="https://static.timoweiss.me/virtualchime-showcase.jpg"
-          />
+          /> */}
         </div>
         <Link
           href="/projects"

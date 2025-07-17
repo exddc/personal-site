@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "@/components/Link";
 
 export default function Home() {
@@ -23,7 +24,7 @@ export default function Home() {
         <h2 className="font-mono text-xl font-medium">about</h2>
         <div className="flex flex-col gap-6 text-base lg:flex-row lg:gap-24">
           <p>
-            I'm a full-stack developer with several years of experience in
+            I&apos;m a full-stack developer with several years of experience in
             building web applications, tooling and automation.
           </p>
           <p>

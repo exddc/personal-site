@@ -1,14 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 const PPMontreal = localFont({
   variable: "--font-ppmontreal",
@@ -44,10 +38,10 @@ const PPMontrealMono = localFont({
 
 export const metadata: Metadata = {
   title: "Timo Weiss",
-  description: "Software Developer working on a wide spectrum of Projects",
+  description: "I'm a full-stack developer at HMMC",
   openGraph: {
     title: "Timo Weiss",
-    description: "Software Developer working on a wide spectrum of Projects",
+    description: "I'm a full-stack developer at HMMC",
     url: "https://timoweiss.me",
     type: "website",
     images: [
@@ -61,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: "Timo Weiss",
-    description: "Software Developer working on a wide spectrum of Projects",
+    description: "I'm a full-stack developer at HMMC",
     images: ["https://timoweiss.me/og-image.jpg"],
     card: "summary_large_image",
     creator: "@timooweiss",
@@ -77,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full bg-[#EDEDED] antialiased`}
+      className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full bg-[#EDEDED] antialiased`}
     >
       <body className="bg-[#EDEDED] p-0 xl:p-24">{children}</body>
       <Script

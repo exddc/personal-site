@@ -23,12 +23,12 @@ export default function Home() {
         <h2 className="font-mono text-xl font-medium">about</h2>
         <div className="flex flex-col gap-6 text-base lg:flex-row lg:gap-24">
           <p>
-            I love building in the digital and physical world and try to push my
-            abilities by starting projects outside of my scope
+            I'm a full-stack developer with several years of experience in
+            building web applications, tooling and automation.
           </p>
           <p>
             I love building in the digital and physical world and try to push my
-            abilities by starting projects outside of my scope
+            abilities by starting projects outside of my scope.
           </p>
         </div>
       </div>

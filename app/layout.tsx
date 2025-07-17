@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -12,28 +10,34 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const PPMigraItalic = localFont({
-  variable: "--font-ppmigra-italic",
+const PPMontreal = localFont({
+  variable: "--font-ppmontreal",
   src: [
     {
-      path: "./fonts/PPMigra-BlackItalic.ttf",
-      weight: "900",
-      style: "italic",
-    },
-    {
-      path: "./fonts/PPMigra-ExtraboldItalic.ttf",
-      weight: "800",
-      style: "italic",
-    },
-    {
-      path: "./fonts/PPMigra-ExtralightItalic.ttf",
-      weight: "200",
-      style: "italic",
-    },
-    {
-      path: "./fonts/PPMigra-Italic.ttf",
+      path: "./fonts/PPNeueMontreal-Regular.ttf",
       weight: "400",
-      style: "italic",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PPNeueMontreal-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+});
+
+const PPMontrealMono = localFont({
+  variable: "--font-ppmontreal-mono",
+  src: [
+    {
+      path: "./fonts/PPNeueMontrealMono-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PPNeueMontrealMono-Medium.ttf",
+      weight: "500",
+      style: "normal",
     },
   ],
 });
@@ -73,13 +77,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${PPMigraItalic.variable} h-full w-full bg-[#f8f8f8] tracking-tight antialiased`}
+      className={`${geistSans.variable} ${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full bg-[#EDEDED] antialiased`}
     >
-      <body className="mx-auto w-full">
-        <Header />
-        <main className="mx-auto w-full px-4">{children}</main>
-        <Footer />
-      </body>
+      <body className="bg-[#EDEDED] p-0 xl:p-24">{children}</body>
       <Script
         defer
         data-domain="timoweiss.me"

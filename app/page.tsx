@@ -38,6 +38,10 @@ export default function Home() {
         <div className="flex flex-col gap-6 text-base lg:flex-row lg:gap-24">
           <div className="flex w-full flex-col gap-6">
             <Link
+              href="https://svelte-keyboard.timoweiss.me"
+              title="Svelte Mac Keyboard"
+            />
+            <Link
               href="https://box-grid.timoweiss.me"
               title="Box Grid Generator"
             />

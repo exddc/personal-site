@@ -49,8 +49,8 @@ export default function Home() {
           </div>
           <div className="flex w-full flex-col gap-6">
             <Link
-              href="https://domain-generator.timoweiss.me"
-              title="Domain Generator"
+              href="https://name-generator.timoweiss.me"
+              title="Name Generator"
             />
             <Link
               href="https://blurry-blob-background.timoweiss.me"

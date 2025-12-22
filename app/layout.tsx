@@ -1,9 +1,15 @@
+// Libraries
 import React from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+// Styles
 import "./globals.css";
+
+// Components
 import Script from "next/script";
 
+// Fonts
 const PPMontreal = localFont({
   variable: "--font-ppmontreal",
   src: [
@@ -36,6 +42,7 @@ const PPMontrealMono = localFont({
   ],
 });
 
+// Metadata
 export const metadata: Metadata = {
   title: "Timo Weiss",
   description: "I'm a full-stack developer at HMMC",
@@ -71,9 +78,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full bg-[#EDEDED] antialiased`}
+      className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full antialiased`}
     >
-      <body className="bg-[#EDEDED] p-0 xl:p-24">{children}</body>
+      <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
+        {children}
+      </body>
       <Script
         defer
         data-domain="timoweiss.me"

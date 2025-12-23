@@ -8,6 +8,7 @@ import "./globals.css";
 
 // Components
 import Script from "next/script";
+import ClientLayout from "@/components/ClientLayout";
 
 // Fonts
 const PPMontreal = localFont({
@@ -81,7 +82,7 @@ export default function RootLayout({
       className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full antialiased`}
     >
       <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
       <Script
         defer

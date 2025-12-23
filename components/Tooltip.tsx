@@ -1,15 +1,16 @@
 "use client";
 
+// Libraries
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Tooltip({
-  children,
-  content,
-}: {
+// Types
+interface Props {
   children: React.ReactNode;
   content: string;
-}) {
+}
+
+export default function Tooltip({ children, content }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   return (

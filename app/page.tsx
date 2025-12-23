@@ -2,7 +2,7 @@
 
 // Libraries
 import React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 // Components
@@ -10,40 +10,12 @@ import NextLink from "next/link";
 import Link from "@/components/Link";
 import ProjectLink from "@/components/ProjectLink";
 import Tooltip from "@/components/Tooltip";
-import NavBar from "@/components/NavBar";
 import BlogPostPreview from "@/components/BlogPostPreview";
-
-// Variants
-const container: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] },
-  },
-};
+import { container, item } from "@/lib/animations";
 
 export default function Home() {
   return (
-    <motion.main
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="mx-auto flex w-full max-w-5xl flex-col gap-24 p-6 sm:p-12 lg:p-24 xl:gap-32"
-    >
-      <NavBar variants={item} />
-
+    <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
       {/* Hero */}
       <motion.div variants={item} className="flex flex-col gap-2">
         <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
@@ -106,24 +78,28 @@ export default function Home() {
             href="https://name-generator.timoweiss.me"
             title="Name Generator"
             description="Generate domain names that are guaranteed to be available. Next.js frontend, FastAPI backend with multiple workers for performance."
+            internalLink="/projects/name-generator"
           />
 
           <ProjectLink
             href="https://svelte-keyboard.timoweiss.me"
             title="Svelte Mac Keyboard"
             description="A virtual, fully interactive keyboard component built with Svelte and Tailwind CSS."
+            internalLink="/projects/svelte-keyboard"
           />
 
           <ProjectLink
             href="https://box-grid.timoweiss.me"
             title="Box Grid Generator"
             description="Dynamically generate a grid of boxes for drawers or cabinets. Next.js with Three.js for the 3D visualization."
+            internalLink="/projects/box-grid"
           />
 
           <ProjectLink
             href="https://gotdoneapp.com"
             title="Got Done"
             description="Minimal To-Do & Habit Tracker. Track daily tasks, build streaks and see your progress. Built with Swift and SwiftUI."
+            internalLink="/projects/gotdoneapp"
           />
         </div>
       </motion.section>
@@ -181,6 +157,6 @@ export default function Home() {
           <Link href="https://linkedin.com/in/timoweiss" title="LinkedIn" />
         </div>
       </motion.section>
-    </motion.main>
+    </motion.div>
   );
 }

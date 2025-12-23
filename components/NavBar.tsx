@@ -31,7 +31,7 @@ export default function NavBar({ variants }: Props) {
       >
         home
       </NextLink>
-      <a
+      <NextLink
         href="/projects"
         className={cn(
           "hover:text-accent transition-colors",
@@ -39,7 +39,7 @@ export default function NavBar({ variants }: Props) {
         )}
       >
         projects
-      </a>
+      </NextLink>
       <NextLink
         href="/blog"
         className={cn(
@@ -50,7 +50,7 @@ export default function NavBar({ variants }: Props) {
         blog
       </NextLink>
 
-      <a
+      <NextLink
         href="/#socials"
         className={cn(
           "hover:text-accent transition-colors",
@@ -58,7 +58,7 @@ export default function NavBar({ variants }: Props) {
         )}
       >
         socials
-      </a>
+      </NextLink>
     </motion.nav>
   );
 }

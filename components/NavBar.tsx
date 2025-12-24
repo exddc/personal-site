@@ -47,7 +47,7 @@ export default function NavBar({ variants }: Props) {
           isActive("/blog") && "text-accent",
         )}
       >
-        blog
+        writing
       </NextLink>
 
       <NextLink

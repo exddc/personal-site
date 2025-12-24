@@ -112,7 +112,7 @@ export default function Home() {
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">
-            Blog
+            Writing
           </h2>
           <NextLink
             href="/blog"

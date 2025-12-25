@@ -9,6 +9,8 @@ import "./globals.css";
 // Components
 import Script from "next/script";
 import ClientLayout from "@/components/ClientLayout";
+import { BlogListProvider } from "@/lib/context/blog-context";
+import { getPosts } from "@/lib/blog";
 
 // Fonts
 const PPMontreal = localFont({
@@ -71,11 +73,13 @@ export const metadata: Metadata = {
   icons: "/icon.png",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = await getPosts();
+
   return (
     <html
       lang="en"
@@ -83,7 +87,9 @@ export default function RootLayout({
     >
       <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
         <ViewTransition>
-          <ClientLayout>{children}</ClientLayout>
+          <BlogListProvider posts={posts}>
+            <ClientLayout>{children}</ClientLayout>
+          </BlogListProvider>
         </ViewTransition>
       </body>
       <Script

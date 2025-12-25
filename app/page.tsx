@@ -1,10 +1,10 @@
 "use client";
 
 // Libraries
-import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigation } from "@/lib/context/navigation-context";
+import { useBlogPosts } from "@/lib/context/blog-context";
 
 // Components
 import NextLink from "next/link";
@@ -16,6 +16,7 @@ import { container, item } from "@/lib/animations";
 
 export default function Home() {
   const { isInitialLoad } = useNavigation();
+  const posts = useBlogPosts();
 
   return (
     <motion.div
@@ -131,21 +132,20 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-12">
-          <BlogPostPreview
-            href="/blog/hello-world"
-            title="Hello World"
-            description="Welcome to my new blog space. This is a preview of whats to come. A blog about my experiences in software development, design and everything in between. I'll be writing about my projects, my learnings and my thoughts on the world."
-            date="December 22, 2025"
-            readingMinutes={5}
-          />
-
-          <BlogPostPreview
-            href="/blog/hello-world"
-            title="Hello World"
-            description="Welcome to my new blog space. This is a preview of whats to come. A blog about my experiences in software development, design and everything in between. I'll be writing about my projects, my learnings and my thoughts on the world."
-            date="December 22, 2025"
-            readingMinutes={5}
-          />
+          {posts.slice(0, 4).map((post) => (
+            <BlogPostPreview
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              title={post.title}
+              description={post.description}
+              date={new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+              readingMinutes={post.readingMinutes}
+            />
+          ))}
         </div>
       </motion.section>
 

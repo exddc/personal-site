@@ -2,7 +2,7 @@
 import { getPost, getPosts } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BlogPostProvider } from "@/lib/context/blogpost-context";
+import { BlogPostProvider } from "@/lib/context/blog-context";
 
 export async function generateStaticParams() {
   const posts = await getPosts();

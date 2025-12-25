@@ -3,7 +3,7 @@
 // Libraries
 import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
-import { useBlogPosts } from "./context";
+import { useBlogPosts } from "@/lib/context/blog-context";
 import { useNavigation } from "@/lib/context/navigation-context";
 
 // Components

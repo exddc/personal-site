@@ -1,22 +1,24 @@
+"use client";
+
 // Libraries
-import { Suspense } from "react";
-import { getPosts } from "@/lib/blog";
+import { motion } from "framer-motion";
+import { container, item } from "@/lib/animations";
+import { useBlogPosts } from "./context";
 
 // Components
 import PageHeader from "@/components/PageHeader";
 import AnimatedList from "./AnimatedList";
 
-export default async function Blog() {
-  const posts = await getPosts();
+export default function Blog() {
+  const posts = useBlogPosts();
+
   return (
-    <div className="flex flex-col gap-24 xl:gap-32">
+    <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
       <PageHeader title="Writing" />
 
-      <section id="posts">
-        <Suspense fallback={null}>
-          <AnimatedList posts={posts} />
-        </Suspense>
-      </section>
-    </div>
+      <motion.section variants={item} id="posts">
+        <AnimatedList posts={posts} />
+      </motion.section>
+    </motion.div>
   );
 }

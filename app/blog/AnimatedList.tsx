@@ -2,7 +2,7 @@
 
 // Libraries
 import { motion } from "framer-motion";
-import { item } from "@/lib/animations";
+import { container, item } from "@/lib/animations";
 import type { BlogPost } from "@/lib/blog";
 
 // Components
@@ -15,15 +15,9 @@ interface Props {
 
 export default function AnimatedList({ posts }: Props) {
   return (
-    <div className="flex flex-col gap-12 sm:gap-16">
-      {posts.map((post, index) => (
-        <motion.div
-          key={post.slug}
-          variants={item}
-          initial="hidden"
-          animate="show"
-          transition={{ delay: index * 0.1 + 0.3 }} // Manual delay + offset
-        >
+    <motion.div variants={container} className="flex flex-col gap-12 sm:gap-16">
+      {posts.map((post) => (
+        <motion.div key={post.slug} variants={item}>
           <NextLink
             href={`/blog/${post.slug}`}
             className="group flex flex-col gap-2 transition-colors first:pt-0 hover:border-white/30"
@@ -45,6 +39,6 @@ export default function AnimatedList({ posts }: Props) {
           </NextLink>
         </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

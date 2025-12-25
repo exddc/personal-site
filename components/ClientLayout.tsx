@@ -24,7 +24,9 @@ export default function ClientLayout({
       className="mx-auto flex w-full max-w-5xl flex-col gap-12 p-6 sm:p-12 lg:p-24 xl:gap-24"
     >
       <NavBar variants={item} />
-      <div className="contents">{children}</div>
+      <motion.div className="contents" variants={item}>
+        {children}
+      </motion.div>
     </motion.main>
   );
 }

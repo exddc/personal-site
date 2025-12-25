@@ -4,8 +4,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
-import { item } from "@/lib/animations";
-import type { BlogPost } from "@/lib/blog";
+import { container, item } from "@/lib/animations";
 import { useBlogPost } from "./context";
 
 // Components
@@ -16,7 +15,7 @@ export default function BlogPost() {
   const post = useBlogPost();
 
   return (
-    <div className="flex flex-col gap-24 xl:gap-32">
+    <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
       <PageHeader
         title={post.title}
         subtitle={`${new Date(post.date).toLocaleDateString("en-US", {
@@ -73,6 +72,6 @@ export default function BlogPost() {
           ← Back to all writing
         </NextLink>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

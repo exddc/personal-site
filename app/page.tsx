@@ -4,7 +4,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useNavigation } from "@/lib/navigation-context";
+import { useNavigation } from "@/lib/context/navigation-context";
 
 // Components
 import NextLink from "next/link";

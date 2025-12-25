@@ -2,7 +2,7 @@
 
 // Libraries
 import { motion } from "framer-motion";
-import { useNavigation } from "@/lib/navigation-context";
+import { useNavigation } from "@/lib/context/navigation-context";
 
 // Components
 import PageHeader from "@/components/PageHeader";

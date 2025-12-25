@@ -5,8 +5,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
-import { useBlogPost } from "./context";
-import { useNavigation } from "@/lib/navigation-context";
+import { useBlogPost } from "@/lib/context/blogpost-context";
+import { useNavigation } from "@/lib/context/navigation-context";
 
 // Components
 import PageHeader from "@/components/PageHeader";

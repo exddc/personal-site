@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
-import { NavigationProvider } from "@/lib/navigation-context";
+import { NavigationProvider } from "@/lib/context/navigation-context";
 
 // Components
 import NavBar from "@/components/NavBar";

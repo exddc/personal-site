@@ -1,5 +1,5 @@
 // Libraries
-import React from "react";
+import React, { ViewTransition } from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -82,7 +82,9 @@ export default function RootLayout({
       className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full antialiased`}
     >
       <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
-        <ClientLayout>{children}</ClientLayout>
+        <ViewTransition>
+          <ClientLayout>{children}</ClientLayout>
+        </ViewTransition>
       </body>
       <Script
         defer

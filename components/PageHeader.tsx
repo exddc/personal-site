@@ -12,7 +12,11 @@ interface Props {
 
 export default function PageHeader({ title, subtitle }: Props) {
   return (
-    <motion.div variants={item} className="flex flex-col gap-2">
+    <motion.div
+      variants={item}
+      className="flex flex-col gap-2"
+      style={{ viewTransitionName: "page-header" }}
+    >
       <h1 className="text-foreground text-4xl font-medium tracking-normal sm:text-6xl">
         {title}
       </h1>

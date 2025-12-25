@@ -36,3 +36,70 @@
     border-color: var(--gray-200, currentColor);
   }
 }
+
+/* View Transitions */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root) {
+    animation: fade-out 200ms ease-out forwards;
+  }
+
+  ::view-transition-new(root) {
+    animation: fade-in 200ms ease-in forwards;
+  }
+
+  ::view-transition-old(page-header) {
+    animation: slide-out-left 300ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  ::view-transition-new(page-header) {
+    animation: slide-in-right 300ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  @keyframes slide-out-left {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-30px); }
+  }
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-out-up {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

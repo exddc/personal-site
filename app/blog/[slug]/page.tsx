@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
 import { useBlogPost } from "./context";
+import { useNavigation } from "@/lib/navigation-context";
 
 // Components
 import PageHeader from "@/components/PageHeader";
@@ -13,9 +14,15 @@ import NextLink from "next/link";
 
 export default function BlogPost() {
   const post = useBlogPost();
+  const { isInitialLoad } = useNavigation();
 
   return (
-    <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
+    <motion.div
+      variants={container}
+      initial={isInitialLoad ? "hidden" : false}
+      animate="show"
+      className="flex flex-col gap-24 xl:gap-32"
+    >
       <PageHeader
         title={post.title}
         subtitle={`${new Date(post.date).toLocaleDateString("en-US", {

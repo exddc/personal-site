@@ -4,6 +4,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useNavigation } from "@/lib/navigation-context";
 
 // Components
 import NextLink from "next/link";
@@ -14,8 +15,15 @@ import BlogPostPreview from "@/components/BlogPostPreview";
 import { container, item } from "@/lib/animations";
 
 export default function Home() {
+  const { isInitialLoad } = useNavigation();
+
   return (
-    <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
+    <motion.div
+      variants={container}
+      initial={isInitialLoad ? "hidden" : false}
+      animate="show"
+      className="flex flex-col gap-24 xl:gap-32"
+    >
       {/* Hero */}
       <motion.div variants={item} className="flex flex-col gap-2">
         <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">

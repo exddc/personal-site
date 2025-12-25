@@ -5,16 +5,19 @@ import React from "react";
 import { motion } from "framer-motion";
 
 // Components
+import PageHeader from "@/components/PageHeader";
 import { container, item } from "@/lib/animations";
 
 export default function Projects() {
   return (
     <motion.div variants={container} className="flex flex-col gap-24 xl:gap-32">
-      <motion.div variants={item} className="flex flex-col gap-2">
-        <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
-          Projects
-        </h1>
-      </motion.div>
+      <PageHeader title="Projects" />
+
+      <motion.section
+        variants={item}
+        id="projects"
+        className="max-w-2xl"
+      ></motion.section>
     </motion.div>
   );
 }

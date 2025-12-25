@@ -1,41 +1,78 @@
-import React from "react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getPost, getPosts } from "@/lib/blog";
+"use client";
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// Libraries
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { motion } from "framer-motion";
+import { item } from "@/lib/animations";
+import type { BlogPost } from "@/lib/blog";
+import { useBlogPost } from "./context";
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await getPost(slug);
+// Components
+import PageHeader from "@/components/PageHeader";
+import NextLink from "next/link";
 
-  if (!post) {
-    notFound();
-  }
+export default function BlogPost() {
+  const post = useBlogPost();
 
   return (
-    <article className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-6 py-24 sm:px-12">
-      <Link href="/blog" className="font-mono text-sm text-gray-500 hover:text-foreground transition-colors">
-        ← blog
-      </Link>
-      
-      <header className="flex flex-col gap-4">
-        <h1 className="text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
-          {post.title}
-        </h1>
-        <time className="font-mono text-sm text-gray-500">{post.date}</time>
-      </header>
-      
-      <div 
-        className="prose prose-invert prose-lg max-w-none prose-headings:font-medium prose-a:text-accent hover:prose-a:text-foreground"
-        dangerouslySetInnerHTML={{ __html: post.content }} 
+    <div className="flex flex-col gap-24 xl:gap-32">
+      <PageHeader
+        title={post.title}
+        subtitle={`${new Date(post.date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })} | ${post.readingMinutes} min read | Timo Weiss`}
       />
-    </article>
+
+      <motion.article
+        variants={item}
+        className="prose prose-neutral prose-lg prose-headings:font-medium prose-img:rounded-xl prose-code:before:content-none prose-code:after:content-none max-w-none"
+      >
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            a: ({ href, children }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-foreground transition-colors"
+              >
+                {children}
+              </a>
+            ),
+            code: ({ className, children, ...props }) => {
+              const match = /language-(\w+)/.exec(className || "");
+              const isInline = !match && !String(children).includes("\n");
+              return isInline ? (
+                <code
+                  className="text-foreground rounded bg-gray-200 px-1 py-0.5 font-mono text-sm"
+                  {...props}
+                >
+                  {children}
+                </code>
+              ) : (
+                <code className={`${className} font-mono`} {...props}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        >
+          {post.content}
+        </ReactMarkdown>
+      </motion.article>
+
+      <motion.div variants={item}>
+        <NextLink
+          href="/blog"
+          className="hover:text-accent font-mono text-sm text-gray-500 transition-colors"
+        >
+          ← Back to all writing
+        </NextLink>
+      </motion.div>
+    </div>
   );
 }
-

@@ -54,21 +54,12 @@ export const metadata: Metadata = {
     description: "I'm a full-stack developer at HMMC",
     url: "https://timoweiss.me",
     type: "website",
-    images: [
-      {
-        url: "https://timoweiss.me/og-image.jpg",
-        width: 1200,
-        height: 600,
-        alt: "Timo Weiss",
-      },
-    ],
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
-    title: "Timo Weiss",
-    description: "I'm a full-stack developer at HMMC",
-    images: ["https://timoweiss.me/og-image.jpg"],
     card: "summary_large_image",
     creator: "@timooweiss",
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
   },
   icons: "/icon.png",
 };

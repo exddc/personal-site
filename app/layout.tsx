@@ -10,7 +10,9 @@ import "./globals.css";
 import Script from "next/script";
 import ClientLayout from "@/components/ClientLayout";
 import { BlogListProvider } from "@/lib/context/blog-context";
+import { ProjectsListProvider } from "@/lib/context/projects-context";
 import { getPosts } from "@/lib/blog";
+import { getProjects } from "@/lib/projects";
 
 // Fonts
 const PPMontreal = localFont({
@@ -70,6 +72,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const posts = await getPosts();
+  const projects = getProjects();
 
   return (
     <html
@@ -78,9 +81,11 @@ export default async function RootLayout({
     >
       <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
         <ViewTransition>
-          <BlogListProvider posts={posts}>
-            <ClientLayout>{children}</ClientLayout>
-          </BlogListProvider>
+          <ProjectsListProvider projects={projects}>
+            <BlogListProvider posts={posts}>
+              <ClientLayout>{children}</ClientLayout>
+            </BlogListProvider>
+          </ProjectsListProvider>
         </ViewTransition>
       </body>
       <Script

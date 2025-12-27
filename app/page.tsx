@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigation } from "@/lib/context/navigation-context";
 import { useBlogPosts } from "@/lib/context/blog-context";
+import { useProjects } from "@/lib/context/projects-context";
 
 // Components
 import NextLink from "next/link";
@@ -17,6 +18,7 @@ import { container, item } from "@/lib/animations";
 export default function Home() {
   const { isInitialLoad } = useNavigation();
   const posts = useBlogPosts();
+  const projects = useProjects();
 
   return (
     <motion.div
@@ -83,33 +85,15 @@ export default function Home() {
         </div>
 
         <div className="grid gap-x-12 gap-y-16 lg:grid-cols-2">
-          <ProjectLink
-            href="https://name-generator.timoweiss.me"
-            title="Name Generator"
-            description="Generate domain names that are guaranteed to be available. Next.js frontend, FastAPI backend with multiple workers for performance."
-            internalLink="/projects/name-generator"
-          />
-
-          <ProjectLink
-            href="https://svelte-keyboard.timoweiss.me"
-            title="Svelte Mac Keyboard"
-            description="A virtual, fully interactive keyboard component built with Svelte and Tailwind CSS."
-            internalLink="/projects/svelte-keyboard"
-          />
-
-          <ProjectLink
-            href="https://box-grid.timoweiss.me"
-            title="Box Grid Generator"
-            description="Dynamically generate a grid of boxes for drawers or cabinets. Next.js with Three.js for the 3D visualization."
-            internalLink="/projects/box-grid"
-          />
-
-          <ProjectLink
-            href="https://gotdoneapp.com"
-            title="Got Done"
-            description="Minimal To-Do & Habit Tracker. Track daily tasks, build streaks and see your progress. Built with Swift and SwiftUI."
-            internalLink="/projects/gotdoneapp"
-          />
+          {projects.slice(0, 4).map((project) => (
+            <ProjectLink
+              key={project.slug}
+              href={project.externalLink}
+              title={project.title}
+              description={project.description}
+              internalLink={`/projects/${project.slug}`}
+            />
+          ))}
         </div>
       </motion.section>
 

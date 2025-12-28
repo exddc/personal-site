@@ -136,7 +136,7 @@ export default function Home() {
       <motion.section
         variants={item}
         id="socials"
-        className="flex flex-col gap-12 pb-24"
+        className="flex flex-col gap-12"
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">

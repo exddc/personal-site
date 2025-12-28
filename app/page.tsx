@@ -133,6 +133,7 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* Socials */}
       <motion.section
         variants={item}
         id="socials"
@@ -143,7 +144,7 @@ export default function Home() {
             Socials
           </h2>
         </div>
-        <div className="flex flex-wrap gap-12 text-base">
+        <div className="flex flex-col flex-wrap gap-12 text-base sm:flex-row">
           <Link href="https://github.com/exddc" title="GitHub" />
           <Link href="https://x.com/timooweiss" title="X (Twitter)" />
           <Link href="https://linkedin.com/in/timoweiss" title="LinkedIn" />

@@ -32,7 +32,7 @@ export default function Home() {
         <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
           Timo Weiss
         </h1>
-        <div className="flex flex-col gap-2 pl-1 text-xl tracking-tight text-neutral-500 sm:flex-row sm:items-center">
+        <div className="flex flex-row gap-2 pl-1 text-xl tracking-tight text-neutral-500">
           <p>Software developer working at</p>
           <Link href="https://hmmc.io" title="HMMC" />
         </div>

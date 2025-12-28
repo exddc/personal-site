@@ -19,7 +19,7 @@ export default function BlogPostPreview({
 }: Props) {
   return (
     <NextLink href={href} className="group block">
-      <h3 className="group-hover:text-accent text-3xl transition-colors">
+      <h3 className="group-hover:text-accent text-2xl transition-colors">
         {title}
       </h3>
       <p className="text-gray-500">{description}</p>

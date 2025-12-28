@@ -17,7 +17,7 @@ export default function PageHeader({ title, subtitle }: Props) {
       className="flex flex-col gap-2"
       style={{ viewTransitionName: "page-header" }}
     >
-      <h1 className="text-foreground text-4xl font-medium tracking-normal sm:text-6xl">
+      <h1 className="text-foreground text-3xl font-medium tracking-normal sm:text-6xl">
         {title}
       </h1>
       {subtitle && (

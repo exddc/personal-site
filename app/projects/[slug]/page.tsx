@@ -14,6 +14,7 @@ import PageHeader from "@/components/PageHeader";
 import NextLink from "next/link";
 import NextImage from "next/image";
 import Tag from "@/components/Tag";
+import Link from "@/components/Link";
 
 export default function ProjectPage() {
   const project = useProject();
@@ -52,15 +53,7 @@ export default function ProjectPage() {
           ))}
         </div>
 
-        {/* External Link */}
-        <a
-          href={project.externalLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-accent hover:text-foreground inline-flex items-center gap-2 font-mono text-sm transition-colors"
-        >
-          Visit Project <ExternalLink className="h-4 w-4" />
-        </a>
+        <Link href={project.externalLink} title="Visit Project" />
       </motion.div>
 
       {/* Content */}

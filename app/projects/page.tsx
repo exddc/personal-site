@@ -63,8 +63,8 @@ export default function Projects() {
                 <Tag
                   className={cn(
                     isSelected
-                      ? "bg-foreground text-background"
-                      : "bg-neutral-200 text-neutral-600 hover:cursor-pointer hover:bg-neutral-300",
+                      ? "bg-foreground text-background hover:bg-foreground/80 hover:cursor-pointer"
+                      : "hover:cursor-pointer hover:bg-neutral-200",
                   )}
                 >
                   {tech}

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ProjectProvider } from "@/lib/context/projects-context";
 
 export async function generateStaticParams() {
-  const projects = getProjects();
+  const projects = await getProjects();
   return projects.map((project) => ({
     slug: project.slug,
   }));
@@ -21,7 +21,7 @@ export default async function ProjectLayout({
   params,
 }: ProjectLayoutProps) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await getProject(slug);
 
   if (!project) {
     notFound();

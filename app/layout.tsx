@@ -72,7 +72,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const posts = await getPosts();
-  const projects = getProjects();
+  const projects = await getProjects();
 
   return (
     <html

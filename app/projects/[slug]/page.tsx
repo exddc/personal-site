@@ -30,13 +30,13 @@ export default function ProjectPage() {
       {/* Hero Image */}
       <motion.div
         variants={item}
-        className="relative aspect-[16/9] w-full overflow-hidden rounded bg-neutral-200"
+        className="relative aspect-[16/9] w-full overflow-hidden rounded bg-neutral-50"
       >
         <NextImage
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"
+          className="object-contain"
           sizes="(max-width: 1200px) 100vw, 1200px"
           priority
         />

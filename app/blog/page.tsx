@@ -19,7 +19,7 @@ export default function Blog() {
       variants={container}
       initial={isInitialLoad ? "hidden" : false}
       animate="show"
-      className="flex flex-col gap-24 xl:gap-32"
+      className="flex min-h-[50vh] flex-col gap-24 xl:gap-32"
     >
       <PageHeader title="Writing" />
 

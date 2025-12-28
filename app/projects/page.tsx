@@ -49,7 +49,7 @@ export default function Projects() {
       variants={container}
       initial={isInitialLoad ? "hidden" : false}
       animate="show"
-      className="flex flex-col gap-16 xl:gap-24"
+      className="flex min-h-[50vh] flex-col gap-16 xl:gap-24"
     >
       <PageHeader title="Projects" />
 

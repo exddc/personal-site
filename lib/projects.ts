@@ -8,6 +8,8 @@ export interface Project {
   image: string;
   technologies: string[];
   externalLink: string;
+  repositoryLink?: string;
+  appStoreLink?: string;
   content: string;
 }
 

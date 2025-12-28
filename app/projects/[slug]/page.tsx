@@ -53,7 +53,15 @@ export default function ProjectPage() {
           ))}
         </div>
 
-        <Link href={project.externalLink} title="Visit Project" />
+        <div className="flex flex-row gap-8">
+          <Link href={project.externalLink} title="Visit Project" />
+          {project.repositoryLink && (
+            <Link href={project.repositoryLink} title="View Repository" />
+          )}
+          {project.appStoreLink && (
+            <Link href={project.appStoreLink} title="View App Store" />
+          )}
+        </div>
       </motion.div>
 
       {/* Content */}

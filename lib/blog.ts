@@ -11,26 +11,45 @@ export interface BlogPost {
   readingMinutes: number;
 }
 
-// Constants
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
+let s3Client: S3Client | null = null;
 
-if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET_NAME) {
-  console.warn("Missing R2 environment variables");
+function getS3Client(): S3Client | null {
+  if (s3Client) return s3Client;
+  
+  const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
+  const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+  const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
+  
+  if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY) {
+    console.warn("Missing R2 environment variables:", {
+      hasAccountId: !!R2_ACCOUNT_ID,
+      hasAccessKeyId: !!R2_ACCESS_KEY_ID,
+      hasSecretAccessKey: !!R2_SECRET_ACCESS_KEY,
+    });
+    return null;
+  }
+  
+  s3Client = new S3Client({
+    region: "auto",
+    endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: {
+      accessKeyId: R2_ACCESS_KEY_ID,
+      secretAccessKey: R2_SECRET_ACCESS_KEY,
+    },
+  });
+  
+  return s3Client;
 }
 
-const S3 = new S3Client({
-  region: "auto",
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID || "",
-    secretAccessKey: R2_SECRET_ACCESS_KEY || "",
-  },
-});
-
 export async function getPosts(): Promise<BlogPost[]> {
+  const S3 = getS3Client();
+  const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
+  
+  if (!S3 || !R2_BUCKET_NAME) {
+    console.warn("R2 not configured, returning empty posts");
+    return [];
+  }
+  
   try {
     const listCommand = new ListObjectsCommand({
       Bucket: R2_BUCKET_NAME,
@@ -88,6 +107,14 @@ export async function getPosts(): Promise<BlogPost[]> {
 }
 
 export async function getPost(slug: string): Promise<BlogPost | undefined> {
+  const S3 = getS3Client();
+  const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
+  
+  if (!S3 || !R2_BUCKET_NAME) {
+    console.warn("R2 not configured, cannot fetch post");
+    return undefined;
+  }
+  
   try {
     const getCommand = new GetObjectCommand({
       Bucket: R2_BUCKET_NAME,

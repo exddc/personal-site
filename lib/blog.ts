@@ -1,4 +1,4 @@
-import { S3Client, ListObjectsV2Command, GetObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, ListObjectsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import matter from "gray-matter";
 
 // Types
@@ -32,7 +32,7 @@ const S3 = new S3Client({
 
 export async function getPosts(): Promise<BlogPost[]> {
   try {
-    const listCommand = new ListObjectsV2Command({
+    const listCommand = new ListObjectsCommand({
       Bucket: R2_BUCKET_NAME,
       Prefix: "blog/",
     });

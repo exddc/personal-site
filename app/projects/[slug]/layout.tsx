@@ -1,14 +1,9 @@
 // Libraries
-import { getProjects, getProject } from "@/lib/projects";
+import { getProject } from "@/lib/projects";
 import { notFound } from "next/navigation";
 import { ProjectProvider } from "@/lib/context/projects-context";
 
-export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 // Types
 interface ProjectLayoutProps {

@@ -1,15 +1,10 @@
 // Libraries
-import { getPost, getPosts } from "@/lib/blog";
+import { getPost } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { BlogPostProvider } from "@/lib/context/blog-context";
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 // Types
 interface BlogPostLayoutProps {

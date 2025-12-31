@@ -14,6 +14,8 @@ import { ProjectsListProvider } from "@/lib/context/projects-context";
 import { getPosts } from "@/lib/blog";
 import { getProjects } from "@/lib/projects";
 
+export const dynamic = "force-dynamic";
+
 // Fonts
 const PPMontreal = localFont({
   variable: "--font-ppmontreal",

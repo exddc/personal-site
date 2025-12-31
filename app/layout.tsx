@@ -52,10 +52,12 @@ const PPMontrealMono = localFont({
 // Metadata
 export const metadata: Metadata = {
   title: "Timo Weiss",
-  description: "I'm a full-stack developer at HMMC",
+  description:
+    "Full-stack developer at HMMC with several years of experience building web applications, automotive interfaces and tooling. I love building in the digital and physical world and try to push my abilities by starting projects outside of my scope.",
   openGraph: {
     title: "Timo Weiss",
-    description: "I'm a full-stack developer at HMMC",
+    description:
+      "Full-stack developer at HMMC with several years of experience building web applications, automotive interfaces and tooling.",
     url: "https://timoweiss.me",
     type: "website",
     images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],

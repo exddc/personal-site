@@ -1,9 +1,20 @@
-import React from "react";
+// Libraries
+import React, { ViewTransition } from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import Script from "next/script";
 
+// Styles
+import "./globals.css";
+
+// Components
+import Script from "next/script";
+import ClientLayout from "@/components/ClientLayout";
+import { BlogListProvider } from "@/lib/context/blog-context";
+import { ProjectsListProvider } from "@/lib/context/projects-context";
+import { getPosts } from "@/lib/blog";
+import { getProjects } from "@/lib/projects";
+
+// Fonts
 const PPMontreal = localFont({
   variable: "--font-ppmontreal",
   src: [
@@ -36,6 +47,7 @@ const PPMontrealMono = localFont({
   ],
 });
 
+// Metadata
 export const metadata: Metadata = {
   title: "Timo Weiss",
   description: "I'm a full-stack developer at HMMC",
@@ -44,36 +56,38 @@ export const metadata: Metadata = {
     description: "I'm a full-stack developer at HMMC",
     url: "https://timoweiss.me",
     type: "website",
-    images: [
-      {
-        url: "https://timoweiss.me/og-image.jpg",
-        width: 1200,
-        height: 600,
-        alt: "Timo Weiss",
-      },
-    ],
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
-    title: "Timo Weiss",
-    description: "I'm a full-stack developer at HMMC",
-    images: ["https://timoweiss.me/og-image.jpg"],
     card: "summary_large_image",
     creator: "@timooweiss",
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
   },
-  icons: "/icon.png",
+  icons: "/icon.jpg",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = await getPosts();
+  const projects = await getProjects();
+
   return (
     <html
       lang="en"
-      className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full bg-[#EDEDED] antialiased`}
+      className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full antialiased`}
     >
-      <body className="bg-[#EDEDED] p-0 xl:p-24">{children}</body>
+      <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
+        <ViewTransition>
+          <ProjectsListProvider projects={projects}>
+            <BlogListProvider posts={posts}>
+              <ClientLayout>{children}</ClientLayout>
+            </BlogListProvider>
+          </ProjectsListProvider>
+        </ViewTransition>
+      </body>
       <Script
         defer
         data-domain="timoweiss.me"

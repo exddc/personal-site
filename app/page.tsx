@@ -1,72 +1,155 @@
-import React from "react";
+"use client";
+
+// Libraries
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { useNavigation } from "@/lib/context/navigation-context";
+import { useBlogPosts } from "@/lib/context/blog-context";
+import { useProjects } from "@/lib/context/projects-context";
+
+// Components
+import NextLink from "next/link";
 import Link from "@/components/Link";
+import ProjectLink from "@/components/ProjectLink";
+import Tooltip from "@/components/Tooltip";
+import BlogPostPreview from "@/components/BlogPostPreview";
+import { container, item } from "@/lib/animations";
 
 export default function Home() {
+  const { isInitialLoad } = useNavigation();
+  const posts = useBlogPosts();
+  const projects = useProjects();
+
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-24 bg-white p-6 sm:p-12 lg:p-24">
-      <div
-        id="menubar"
-        className="font- flex gap-6 font-mono tracking-tighter sm:gap-14"
-      >
-        <a href="/">home</a>
-        <a href="#about">about</a>
-        <a href="#projects">projects</a>
-        <a href="#social">social</a>
-      </div>
-      <div id="hero" className="flex flex-col gap-2">
-        <h1 className="text-3xl font-medium">Timo Weiss</h1>
-        <div className="flex gap-2">
-          <p className="text-base">Software developer working at</p>
+    <motion.div
+      variants={container}
+      initial={isInitialLoad ? "hidden" : false}
+      animate="show"
+      className="flex flex-col gap-24 xl:gap-32"
+    >
+      {/* Hero */}
+      <motion.div variants={item} className="flex flex-col gap-2">
+        <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
+          Timo Weiss
+        </h1>
+        <div className="flex flex-row gap-2 pl-1 text-xl tracking-tight text-neutral-500">
+          <p>Software developer working at</p>
           <Link href="https://hmmc.io" title="HMMC" />
         </div>
-      </div>
-      <div id="about" className="flex flex-col gap-6">
-        <h2 className="font-mono text-xl font-medium">about</h2>
-        <div className="flex flex-col gap-6 text-base lg:flex-row lg:gap-24">
-          <p>
-            I&apos;m a full-stack developer with several years of experience in
-            building web applications, tooling and automation.
-          </p>
-          <p>
-            I love building in the digital and physical world and try to push my
-            abilities by starting projects outside of my scope.
-          </p>
+      </motion.div>
+
+      {/* About */}
+      <motion.section variants={item} id="about" className="max-w-2xl">
+        <span className="text-xl leading-snug text-neutral-500 sm:text-2xl">
+          Full-stack developer with several years of experience building{" "}
+          <Tooltip content="High throughput, performant web applications in Svelte, React and Python at HMMC.">
+            web applications
+          </Tooltip>
+          ,{" "}
+          <Tooltip content="Automotive HMI systems at MAGNA Engineering & Infotainment GmbH.">
+            automotive interfaces
+          </Tooltip>{" "}
+          and{" "}
+          <Tooltip content="CLI tools and automated testing for automotive applications at MAGNA Engineering & Infotainment GmbH.">
+            tooling
+          </Tooltip>
+          . I love building in the{" "}
+          <Tooltip content="Software, web, mobile and cloud infrastructure.">
+            digital
+          </Tooltip>{" "}
+          and{" "}
+          <Tooltip content="Robotics, hardware prototyping and 3D printing.">
+            physical
+          </Tooltip>{" "}
+          world and try to push my abilities by starting projects outside of my
+          scope.
+        </span>
+      </motion.section>
+
+      {/* Projects */}
+      <motion.section
+        variants={item}
+        id="projects"
+        className="flex flex-col gap-12"
+      >
+        <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
+          <h2 className="text-foreground font-mono text-xl font-medium">
+            Projects
+          </h2>
+          <NextLink
+            href="/projects"
+            className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
+          >
+            View all projects <ArrowRight className="h-4 w-4" />
+          </NextLink>
         </div>
-      </div>
-      <div id="projects" className="flex flex-col gap-6">
-        <h2 className="font-mono text-xl font-medium">projects</h2>
-        <div className="flex flex-col gap-6 text-base lg:flex-row lg:gap-24">
-          <div className="flex w-full flex-col gap-6">
-            <Link
-              href="https://svelte-keyboard.timoweiss.me"
-              title="Svelte Mac Keyboard"
+
+        <div className="grid gap-x-12 gap-y-16 lg:grid-cols-2">
+          {projects.slice(0, 4).map((project) => (
+            <ProjectLink
+              key={project.slug}
+              href={project.externalLink}
+              title={project.title}
+              description={project.description}
+              internalLink={`/projects/${project.slug}`}
             />
-            <Link
-              href="https://box-grid.timoweiss.me"
-              title="Box Grid Generator"
-            />
-            <Link href="https://gotdoneapp.com" title="Got Done" />
-          </div>
-          <div className="flex w-full flex-col gap-6">
-            <Link
-              href="https://name-generator.timoweiss.me"
-              title="Name Generator"
-            />
-            <Link
-              href="https://blurry-blob-background.timoweiss.me"
-              title="Animated Blurry Blob Backgrounds"
-            />
-          </div>
+          ))}
         </div>
-      </div>
-      <div id="social" className="flex flex-col gap-6">
-        <h2 className="font-mono text-xl font-medium">social</h2>
-        <div className="flex gap-14 text-base lg:gap-24">
+      </motion.section>
+
+      {/* Blog */}
+      <motion.section
+        variants={item}
+        id="latest-posts"
+        className="flex flex-col gap-12"
+      >
+        <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
+          <h2 className="text-foreground font-mono text-xl font-medium">
+            Writing
+          </h2>
+          <NextLink
+            href="/blog"
+            className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
+          >
+            Read all posts <ArrowRight className="h-4 w-4" />
+          </NextLink>
+        </div>
+
+        <div className="flex flex-col gap-12">
+          {posts.slice(0, 4).map((post) => (
+            <BlogPostPreview
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              title={post.title}
+              description={post.description}
+              date={new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+              readingMinutes={post.readingMinutes}
+            />
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Socials */}
+      <motion.section
+        variants={item}
+        id="socials"
+        className="flex flex-col gap-12"
+      >
+        <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
+          <h2 className="text-foreground font-mono text-xl font-medium">
+            Socials
+          </h2>
+        </div>
+        <div className="flex flex-col flex-wrap gap-12 text-base sm:flex-row">
           <Link href="https://github.com/exddc" title="GitHub" />
-          <Link href="https://x.com/timooweiss" title="X" />
+          <Link href="https://x.com/timooweiss" title="X (Twitter)" />
           <Link href="https://linkedin.com/in/timoweiss" title="LinkedIn" />
         </div>
-      </div>
-    </main>
+      </motion.section>
+    </motion.div>
   );
 }

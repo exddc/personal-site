@@ -26,7 +26,7 @@ export default function ProjectCard({
   return (
     <div className="group flex h-full flex-col gap-4">
       <NextLink href={href}>
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded bg-neutral-50">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded bg-neutral-50">
           <NextImage
             src={image}
             alt={title}

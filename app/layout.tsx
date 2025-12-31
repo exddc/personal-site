@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: "@timooweiss",
     images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
   },
-  icons: "/icon.png",
+  icons: "/icon.jpg",
 };
 
 export default async function RootLayout({

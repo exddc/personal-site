@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "opennextjs-cloudflare build",
+    "postbuild": "cp .open-next/worker.js .open-next/_worker.js",
     "start": "next start",
     "lint": "next lint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

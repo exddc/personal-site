@@ -1,9 +1,11 @@
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
+import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "./schema";
 import * as authSchema from "./auth-schema";
 
-type DbClient = ReturnType<typeof drizzle>;
+type DbSchema = typeof schema & typeof authSchema;
+type DbClient = PostgresJsDatabase<DbSchema>;
 
 let db: DbClient | null = null;
 

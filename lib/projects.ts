@@ -1,4 +1,7 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { eq } from "drizzle-orm";
+import { getDb } from "@/app/db";
+import { cmsDocuments } from "@/app/db/schema";
 
 // Types
 export interface Project {
@@ -43,15 +46,36 @@ function getS3Client(): S3Client | null {
   return s3Client;
 }
 
-export async function getProjects(): Promise<Project[]> {
+async function getProjectsFromCms(): Promise<Project[] | null> {
+  const db = getDb();
+  if (!db) return null;
+
+  try {
+    const doc = await db.query.cmsDocuments.findFirst({
+      where: eq(cmsDocuments.key, "projects"),
+    });
+
+    const rawJson = (doc?.data as { projectsJson?: string } | null)?.projectsJson;
+    const trimmed = rawJson?.trim();
+    if (!trimmed) return null;
+
+    const parsed = JSON.parse(trimmed) as Project[];
+    return Array.isArray(parsed) ? parsed : null;
+  } catch (error) {
+    console.error("Error fetching projects from CMS:", error);
+    return null;
+  }
+}
+
+async function getProjectsFromR2(): Promise<Project[]> {
   const S3 = getS3Client();
   const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
-  
+
   if (!S3 || !R2_BUCKET_NAME) {
     console.warn("R2 not configured, returning empty projects");
     return [];
   }
-  
+
   try {
     const getCommand = new GetObjectCommand({
       Bucket: R2_BUCKET_NAME,
@@ -69,6 +93,15 @@ export async function getProjects(): Promise<Project[]> {
     console.error("Error fetching projects from R2:", error);
     return [];
   }
+}
+
+export async function getProjects(): Promise<Project[]> {
+  const cmsProjects = await getProjectsFromCms();
+  if (cmsProjects && cmsProjects.length > 0) {
+    return cmsProjects;
+  }
+
+  return getProjectsFromR2();
 }
 
 export async function getProject(slug: string): Promise<Project | undefined> {

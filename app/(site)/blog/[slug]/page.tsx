@@ -16,6 +16,8 @@ export default function BlogPost() {
   const post = useBlogPost();
   const { isInitialLoad } = useNavigation();
 
+  const authorName = post.authorName || "Timo Weiss";
+
   return (
     <motion.div
       variants={container}
@@ -29,7 +31,7 @@ export default function BlogPost() {
           year: "numeric",
           month: "long",
           day: "numeric",
-        })} | ${post.readingMinutes} min read | Timo Weiss`}
+        })} | ${post.readingMinutes} min read | ${authorName}`}
       />
 
       <motion.article

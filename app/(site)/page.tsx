@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigation } from "@/lib/context/navigation-context";
 import { useBlogPosts } from "@/lib/context/blog-context";
+import { useHomePage } from "@/lib/context/home-context";
 import { useProjects } from "@/lib/context/projects-context";
+import { useSiteSettings } from "@/lib/context/site-context";
 
 // Components
 import NextLink from "next/link";
@@ -19,6 +21,8 @@ export default function Home() {
   const { isInitialLoad } = useNavigation();
   const posts = useBlogPosts();
   const projects = useProjects();
+  const siteSettings = useSiteSettings();
+  const homePage = useHomePage();
 
   return (
     <motion.div
@@ -30,39 +34,41 @@ export default function Home() {
       {/* Hero */}
       <motion.div variants={item} className="flex flex-col gap-2">
         <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
-          Timo Weiss
+          {siteSettings.siteName}
         </h1>
         <div className="flex flex-row gap-2 pl-1 text-xl tracking-tight text-neutral-500">
-          <p>Software developer working at</p>
-          <Link href="https://hmmc.io" title="HMMC" />
+          <p>{homePage.heroRolePrefix}</p>
+          <Link
+            href={homePage.heroCompanyUrl}
+            title={homePage.heroCompanyName}
+          />
         </div>
       </motion.div>
 
       {/* About */}
       <motion.section variants={item} id="about" className="max-w-2xl">
         <span className="text-xl leading-snug text-neutral-500 sm:text-2xl">
-          Full-stack developer with several years of experience building{" "}
-          <Tooltip content="High throughput, performant web applications in Svelte, React and Python at HMMC.">
-            web applications
+          {homePage.aboutIntro}{" "}
+          <Tooltip content={homePage.aboutWebTooltip}>
+            {homePage.aboutWebLabel}
           </Tooltip>
           ,{" "}
-          <Tooltip content="Automotive HMI systems at MAGNA Engineering & Infotainment GmbH.">
-            automotive interfaces
+          <Tooltip content={homePage.aboutAutoTooltip}>
+            {homePage.aboutAutoLabel}
           </Tooltip>{" "}
           and{" "}
-          <Tooltip content="CLI tools and automated testing for automotive applications at MAGNA Engineering & Infotainment GmbH.">
-            tooling
+          <Tooltip content={homePage.aboutToolingTooltip}>
+            {homePage.aboutToolingLabel}
           </Tooltip>
-          . I love building in the{" "}
-          <Tooltip content="Software, web, mobile and cloud infrastructure.">
-            digital
+          . {homePage.aboutBridge}{" "}
+          <Tooltip content={homePage.aboutDigitalTooltip}>
+            {homePage.aboutDigitalLabel}
           </Tooltip>{" "}
           and{" "}
-          <Tooltip content="Robotics, hardware prototyping and 3D printing.">
-            physical
+          <Tooltip content={homePage.aboutPhysicalTooltip}>
+            {homePage.aboutPhysicalLabel}
           </Tooltip>{" "}
-          world and try to push my abilities by starting projects outside of my
-          scope.
+          {homePage.aboutOutro}
         </span>
       </motion.section>
 
@@ -74,13 +80,13 @@ export default function Home() {
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">
-            Projects
+            {homePage.projectsTitle}
           </h2>
           <NextLink
             href="/projects"
             className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
           >
-            View all projects <ArrowRight className="h-4 w-4" />
+            {homePage.projectsCtaLabel} <ArrowRight className="h-4 w-4" />
           </NextLink>
         </div>
 
@@ -105,13 +111,13 @@ export default function Home() {
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">
-            Writing
+            {homePage.writingTitle}
           </h2>
           <NextLink
             href="/blog"
             className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
           >
-            Read all posts <ArrowRight className="h-4 w-4" />
+            {homePage.writingCtaLabel} <ArrowRight className="h-4 w-4" />
           </NextLink>
         </div>
 
@@ -141,13 +147,22 @@ export default function Home() {
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">
-            Socials
+            {homePage.socialsTitle}
           </h2>
         </div>
         <div className="flex flex-col flex-wrap gap-12 text-base sm:flex-row">
-          <Link href="https://github.com/exddc" title="GitHub" />
-          <Link href="https://x.com/timooweiss" title="X (Twitter)" />
-          <Link href="https://linkedin.com/in/timoweiss" title="LinkedIn" />
+          <Link
+            href={siteSettings.socialGitHubUrl}
+            title={siteSettings.socialGitHubLabel}
+          />
+          <Link
+            href={siteSettings.socialXUrl}
+            title={siteSettings.socialXLabel}
+          />
+          <Link
+            href={siteSettings.socialLinkedInUrl}
+            title={siteSettings.socialLinkedInLabel}
+          />
         </div>
       </motion.section>
     </motion.div>

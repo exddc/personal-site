@@ -1,5 +1,12 @@
-import { S3Client, ListObjectsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  ListObjectsCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
+import { desc, eq, and } from "drizzle-orm";
 import matter from "gray-matter";
+import { getDb } from "@/app/db";
+import { blogPosts } from "@/app/db/schema";
 
 // Types
 export interface BlogPost {
@@ -9,6 +16,7 @@ export interface BlogPost {
   description: string;
   content: string;
   readingMinutes: number;
+  authorName?: string;
 }
 
 let s3Client: S3Client | null = null;
@@ -41,15 +49,75 @@ function getS3Client(): S3Client | null {
   return s3Client;
 }
 
-export async function getPosts(): Promise<BlogPost[]> {
+function estimateReadingMinutes(content: string) {
+  const words = content.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+async function getPostsFromDb(): Promise<BlogPost[] | null> {
+  const db = getDb();
+  if (!db) return null;
+
+  try {
+    const posts = await db.query.blogPosts.findMany({
+      where: eq(blogPosts.status, "published"),
+      orderBy: [desc(blogPosts.publishedAt), desc(blogPosts.createdAt)],
+    });
+
+    return posts.map((post) => {
+      const date = post.publishedAt ?? post.createdAt ?? new Date();
+      return {
+        slug: post.slug,
+        title: post.title,
+        date: date.toISOString(),
+        description: post.excerpt ?? "",
+        content: post.content,
+        readingMinutes: estimateReadingMinutes(post.content),
+        authorName: post.authorName,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching posts from database:", error);
+    return null;
+  }
+}
+
+async function getPostFromDb(slug: string): Promise<BlogPost | null> {
+  const db = getDb();
+  if (!db) return null;
+
+  try {
+    const post = await db.query.blogPosts.findFirst({
+      where: and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")),
+    });
+
+    if (!post) return null;
+
+    const date = post.publishedAt ?? post.createdAt ?? new Date();
+    return {
+      slug: post.slug,
+      title: post.title,
+      date: date.toISOString(),
+      description: post.excerpt ?? "",
+      content: post.content,
+      readingMinutes: estimateReadingMinutes(post.content),
+      authorName: post.authorName,
+    };
+  } catch (error) {
+    console.error(`Error fetching post ${slug} from database:`, error);
+    return null;
+  }
+}
+
+async function getPostsFromR2(): Promise<BlogPost[]> {
   const S3 = getS3Client();
   const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
-  
+
   if (!S3 || !R2_BUCKET_NAME) {
     console.warn("R2 not configured, returning empty posts");
     return [];
   }
-  
+
   try {
     const listCommand = new ListObjectsCommand({
       Bucket: R2_BUCKET_NAME,
@@ -74,17 +142,20 @@ export async function getPosts(): Promise<BlogPost[]> {
 
         const fileContent = await Body.transformToString();
         let cleanedContent = fileContent.trim();
-        
+
         const match = fileContent.match(/^(\s+)---/);
         if (match) {
-           const indent = match[1];
-           const regex = new RegExp(`^${indent}`, "gm");
-           cleanedContent = fileContent.replace(regex, "").trim();
+          const indent = match[1];
+          const regex = new RegExp(`^${indent}`, "gm");
+          cleanedContent = fileContent.replace(regex, "").trim();
         }
 
         const { data, content } = matter(cleanedContent);
         const slug = item.Key.replace("blog/", "").replace(".md", "");
-        const dateStr = data.date instanceof Date ? data.date.toISOString() : (data.date || new Date().toISOString());
+        const dateStr =
+          data.date instanceof Date
+            ? data.date.toISOString()
+            : data.date || new Date().toISOString();
 
         return {
           slug,
@@ -92,9 +163,10 @@ export async function getPosts(): Promise<BlogPost[]> {
           date: dateStr,
           description: data.description || "",
           content,
-          readingMinutes: data.readingMinutes || 5,
+          readingMinutes: data.readingMinutes || estimateReadingMinutes(content),
+          authorName: data.authorName || "Timo Weiss",
         } as BlogPost;
-      })
+      }),
     );
 
     return posts
@@ -106,15 +178,15 @@ export async function getPosts(): Promise<BlogPost[]> {
   }
 }
 
-export async function getPost(slug: string): Promise<BlogPost | undefined> {
+async function getPostFromR2(slug: string): Promise<BlogPost | undefined> {
   const S3 = getS3Client();
   const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
-  
+
   if (!S3 || !R2_BUCKET_NAME) {
     console.warn("R2 not configured, cannot fetch post");
     return undefined;
   }
-  
+
   try {
     const getCommand = new GetObjectCommand({
       Bucket: R2_BUCKET_NAME,
@@ -125,20 +197,20 @@ export async function getPost(slug: string): Promise<BlogPost | undefined> {
     if (!Body) return undefined;
 
     const fileContent = await Body.transformToString();
-    
-    // Apply same cleaning logic
+
     let cleanedContent = fileContent.trim();
     const match = fileContent.match(/^(\s+)---/);
     if (match) {
-       const indent = match[1];
-       const regex = new RegExp(`^${indent}`, "gm");
-       cleanedContent = fileContent.replace(regex, "").trim();
+      const indent = match[1];
+      const regex = new RegExp(`^${indent}`, "gm");
+      cleanedContent = fileContent.replace(regex, "").trim();
     }
 
     const { data, content } = matter(cleanedContent);
-
-    // Ensure date is a string
-    const dateStr = data.date instanceof Date ? data.date.toISOString() : (data.date || new Date().toISOString());
+    const dateStr =
+      data.date instanceof Date
+        ? data.date.toISOString()
+        : data.date || new Date().toISOString();
 
     return {
       slug,
@@ -146,10 +218,29 @@ export async function getPost(slug: string): Promise<BlogPost | undefined> {
       date: dateStr,
       description: data.description || "",
       content,
-      readingMinutes: data.readingMinutes || 5,
+      readingMinutes: data.readingMinutes || estimateReadingMinutes(content),
+      authorName: data.authorName || "Timo Weiss",
     };
   } catch (error) {
     console.error(`Error fetching post ${slug}:`, error);
     return undefined;
   }
+}
+
+export async function getPosts(): Promise<BlogPost[]> {
+  const dbPosts = await getPostsFromDb();
+  if (dbPosts && dbPosts.length > 0) {
+    return dbPosts;
+  }
+
+  return getPostsFromR2();
+}
+
+export async function getPost(slug: string): Promise<BlogPost | undefined> {
+  const dbPost = await getPostFromDb(slug);
+  if (dbPost) {
+    return dbPost;
+  }
+
+  return getPostFromR2(slug);
 }

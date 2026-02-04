@@ -24,6 +24,8 @@ export async function generateMetadata({
     };
   }
 
+  const authorName = post.authorName || "Timo Weiss";
+
   return {
     title: `${post.title} | Timo Weiss`,
     description: post.description,
@@ -32,7 +34,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       publishedTime: post.date,
-      authors: ["Timo Weiss"],
+      authors: [authorName],
       images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {

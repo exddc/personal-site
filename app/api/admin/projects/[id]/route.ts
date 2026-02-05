@@ -1,0 +1,86 @@
+import { createCollectionItemRoutes } from "litecms/server";
+import { headers } from "next/headers";
+import { and, eq, ne } from "drizzle-orm";
+import { getAuth } from "@/app/lib/auth";
+import { getDb } from "@/app/db";
+import { projects } from "@/app/db/schema";
+
+function requireDb() {
+  const db = getDb();
+  if (!db) {
+    throw new Error("DATABASE_URL is not configured");
+  }
+  return db;
+}
+
+export const { GET, PATCH, DELETE } = createCollectionItemRoutes({
+  checkAuth: async () => {
+    const auth = getAuth();
+    if (!auth) return false;
+
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    return !!session?.user;
+  },
+  getProject: async (id) => {
+    const db = requireDb();
+    const project = await db.query.projects.findFirst({
+      where: eq(projects.id, id),
+    });
+    if (!project) return null;
+    return {
+      ...project,
+      image: project.image ?? undefined,
+      technologies: (project.technologies as string[]) ?? [],
+      repositoryLink: project.repositoryLink ?? undefined,
+      appStoreLink: project.appStoreLink ?? undefined,
+    };
+  },
+  updateProject: async (id, data) => {
+    const db = requireDb();
+    const current = await db.query.projects.findFirst({
+      where: eq(projects.id, id),
+      columns: { status: true, publishedAt: true },
+    });
+
+    const updateData: Record<string, unknown> = {
+      ...data,
+      updatedAt: new Date(),
+    };
+
+    if (data.status === "published" && current?.status !== "published") {
+      updateData.publishedAt = new Date();
+    }
+
+    if (data.status === "draft" && current?.status === "published") {
+      updateData.publishedAt = null;
+    }
+
+    const [updated] = await db
+      .update(projects)
+      .set(updateData)
+      .where(eq(projects.id, id))
+      .returning();
+
+    return {
+      ...updated,
+      image: updated.image ?? undefined,
+      technologies: (updated.technologies as string[]) ?? [],
+      repositoryLink: updated.repositoryLink ?? undefined,
+      appStoreLink: updated.appStoreLink ?? undefined,
+    };
+  },
+  deleteProject: async (id) => {
+    const db = requireDb();
+    await db.delete(projects).where(eq(projects.id, id));
+  },
+  slugExistsExcluding: async (slug, excludeId) => {
+    const db = requireDb();
+    const existing = await db.query.projects.findFirst({
+      where: and(eq(projects.slug, slug), ne(projects.id, excludeId)),
+      columns: { id: true },
+    });
+    return !!existing;
+  },
+});

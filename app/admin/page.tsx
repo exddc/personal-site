@@ -14,6 +14,13 @@ export default function AdminIndexPage() {
           icon: CmsModuleIcons.blog,
           href: `${cmsConfig.basePath ?? "/admin"}/blog`,
         },
+        {
+          id: "projects",
+          title: "Projects",
+          description: "Create and manage projects",
+          icon: CmsModuleIcons.pages,
+          href: `${cmsConfig.basePath ?? "/admin"}/projects`,
+        },
       ]}
     />
   );

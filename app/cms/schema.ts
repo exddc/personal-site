@@ -100,29 +100,6 @@ export type SiteSettingsData = z.infer<typeof SiteSettingsDef.schema>;
 export const SiteSettingsSchema = SiteSettingsDef.schema;
 export const siteSettingsDefaults = SiteSettingsDef.defaults;
 
-export const ProjectsSettingsDef = defineSchema({
-  schema: z.object({
-    projectsJson: z.string().optional(),
-  }),
-  fields: {
-    projectsJson: {
-      label: "Projects JSON",
-      type: "textarea",
-      rows: 16,
-      helpText:
-        "Paste a JSON array of projects to override the R2-backed list.",
-      order: 1,
-    },
-  },
-  defaults: {
-    projectsJson: "",
-  },
-});
-
-export type ProjectsSettingsData = z.infer<typeof ProjectsSettingsDef.schema>;
-export const ProjectsSettingsSchema = ProjectsSettingsDef.schema;
-export const projectsSettingsDefaults = ProjectsSettingsDef.defaults;
-
 export const HomePageDef = defineSchema({
   schema: z.object({
     heroRolePrefix: z.string().min(1, "Hero role text is required"),

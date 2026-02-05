@@ -1,11 +1,9 @@
 import { createCmsConfig, definePage } from "litecms/admin/config";
-import { HomePageDef, ProjectsSettingsDef, SiteSettingsDef } from "./schema";
+import { HomePageDef, SiteSettingsDef } from "./schema";
 import {
   getHomePage,
-  getProjectsSettings,
   getSiteSettings,
   saveHomePage,
-  saveProjectsSettings,
   saveSiteSettings,
 } from "@/app/admin/actions";
 
@@ -38,16 +36,6 @@ export const cmsConfig = createCmsConfig({
       getData: getSiteSettings,
       order: 2,
       group: "Settings",
-    }),
-    definePage({
-      slug: "projects",
-      title: "Projects",
-      description: "Override the projects list with JSON",
-      definition: ProjectsSettingsDef,
-      action: saveProjectsSettings,
-      getData: getProjectsSettings,
-      order: 3,
-      group: "Pages",
     }),
   ],
 });

@@ -1,7 +1,6 @@
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { getDb } from "@/app/db";
-import { cmsDocuments } from "@/app/db/schema";
+import { projects as projectsTable } from "@/app/db/schema";
 
 // Types
 export interface Project {
@@ -16,92 +15,36 @@ export interface Project {
   content: string;
 }
 
-let s3Client: S3Client | null = null;
-
-function getS3Client(): S3Client | null {
-  if (s3Client) return s3Client;
-  
-  const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-  const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
-  const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
-  
-  if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY) {
-    console.warn("Missing R2 environment variables:", {
-      hasAccountId: !!R2_ACCOUNT_ID,
-      hasAccessKeyId: !!R2_ACCESS_KEY_ID,
-      hasSecretAccessKey: !!R2_SECRET_ACCESS_KEY,
-    });
-    return null;
-  }
-  
-  s3Client = new S3Client({
-    region: "auto",
-    endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-    credentials: {
-      accessKeyId: R2_ACCESS_KEY_ID,
-      secretAccessKey: R2_SECRET_ACCESS_KEY,
-    },
-  });
-  
-  return s3Client;
-}
-
-async function getProjectsFromCms(): Promise<Project[] | null> {
+async function getProjectsFromDb(): Promise<Project[] | null> {
   const db = getDb();
   if (!db) return null;
 
   try {
-    const doc = await db.query.cmsDocuments.findFirst({
-      where: eq(cmsDocuments.key, "projects"),
+    const projects = await db.query.projects.findMany({
+      where: eq(projectsTable.status, "published"),
+      orderBy: [desc(projectsTable.publishedAt), desc(projectsTable.createdAt)],
     });
 
-    const rawJson = (doc?.data as { projectsJson?: string } | null)?.projectsJson;
-    const trimmed = rawJson?.trim();
-    if (!trimmed) return null;
-
-    const parsed = JSON.parse(trimmed) as Project[];
-    return Array.isArray(parsed) ? parsed : null;
+    return projects.map((project) => ({
+      slug: project.slug,
+      title: project.title,
+      description: project.description,
+      image: project.image ?? "",
+      technologies: (project.technologies as string[]) ?? [],
+      externalLink: project.externalLink,
+      repositoryLink: project.repositoryLink ?? undefined,
+      appStoreLink: project.appStoreLink ?? undefined,
+      content: project.content,
+    }));
   } catch (error) {
-    console.error("Error fetching projects from CMS:", error);
+    console.error("Error fetching projects from database:", error);
     return null;
   }
 }
 
-async function getProjectsFromR2(): Promise<Project[]> {
-  const S3 = getS3Client();
-  const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
-
-  if (!S3 || !R2_BUCKET_NAME) {
-    console.warn("R2 not configured, returning empty projects");
-    return [];
-  }
-
-  try {
-    const getCommand = new GetObjectCommand({
-      Bucket: R2_BUCKET_NAME,
-      Key: "projects/projects.json",
-    });
-
-    const { Body } = await S3.send(getCommand);
-    if (!Body) return [];
-
-    const fileContent = await Body.transformToString();
-    const projects: Project[] = JSON.parse(fileContent);
-
-    return projects;
-  } catch (error) {
-    console.error("Error fetching projects from R2:", error);
-    return [];
-  }
-}
-
 export async function getProjects(): Promise<Project[]> {
-  const cmsProjects = await getProjectsFromCms();
-  if (cmsProjects && cmsProjects.length > 0) {
-    return cmsProjects;
-  }
-
-  return getProjectsFromR2();
+  const dbProjects = await getProjectsFromDb();
+  return dbProjects ?? [];
 }
 
 export async function getProject(slug: string): Promise<Project | undefined> {

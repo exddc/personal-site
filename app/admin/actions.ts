@@ -10,12 +10,9 @@ import { getAuth } from '@/app/lib/auth';
 import {
   HomePageSchema,
   type HomePageData,
-  ProjectsSettingsSchema,
-  type ProjectsSettingsData,
   SiteSettingsSchema,
   type SiteSettingsData,
   homePageDefaults,
-  projectsSettingsDefaults,
   siteSettingsDefaults,
 } from '@/app/cms/schema';
 
@@ -101,21 +98,3 @@ export async function getHomePage(): Promise<HomePageData> {
   return result.success ? result.data : homePageDefaults;
 }
 
-export const saveProjectsSettings = createSaveAction(ProjectsSettingsSchema, {
-  save: async (data) => saveDocument('projects', data),
-  revalidatePath: '/projects',
-  onRevalidate: () => {
-    revalidatePath('/');
-    revalidatePath('/projects');
-  },
-  checkAuth: checkAuthenticated,
-});
-
-export async function getProjectsSettings(): Promise<ProjectsSettingsData> {
-  const data = await getDocument<ProjectsSettingsData>('projects');
-
-  if (!data) return projectsSettingsDefaults;
-
-  const result = ProjectsSettingsSchema.safeParse(data);
-  return result.success ? result.data : projectsSettingsDefaults;
-}

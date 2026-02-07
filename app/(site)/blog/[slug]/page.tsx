@@ -11,6 +11,7 @@ import { useNavigation } from "@/lib/context/navigation-context";
 // Components
 import PageHeader from "@/components/PageHeader";
 import NextLink from "next/link";
+import NextImage from "next/image";
 
 export default function BlogPost() {
   const post = useBlogPost();
@@ -65,6 +66,21 @@ export default function BlogPost() {
                 <code className={`${className} font-mono`} {...props}>
                   {children}
                 </code>
+              );
+            },
+            img: ({ src, alt }) => {
+              if (!src || typeof src !== "string") return null;
+              return (
+                <span className="block">
+                  <NextImage
+                    src={src}
+                    alt={alt || ""}
+                    width={1200}
+                    height={800}
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                    className="h-auto w-full rounded-xl"
+                  />
+                </span>
               );
             },
           }}

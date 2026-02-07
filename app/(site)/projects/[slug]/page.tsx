@@ -98,6 +98,21 @@ export default function ProjectPage() {
                 </code>
               );
             },
+            img: ({ src, alt }) => {
+              if (!src || typeof src !== "string") return null;
+              return (
+                <span className="block">
+                  <NextImage
+                    src={src}
+                    alt={alt || ""}
+                    width={1200}
+                    height={800}
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                    className="h-auto w-full rounded-xl"
+                  />
+                </span>
+              );
+            },
           }}
         >
           {project.content}

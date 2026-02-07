@@ -1,9 +1,16 @@
-import { createCollectionRoutes } from "litecms/server";
+import * as LiteCmsServer from "litecms/server";
 import { headers } from "next/headers";
 import { desc, eq } from "drizzle-orm";
 import { getAuth } from "@/app/lib/auth";
 import { getDb } from "@/app/db";
 import { projects } from "@/app/db/schema";
+
+type CreateProjectsRoutesFactory = typeof LiteCmsServer.createProjectsRoutes;
+
+const liteCmsServer = LiteCmsServer as {
+  createProjectsRoutes?: CreateProjectsRoutesFactory;
+  createCollectionRoutes?: CreateProjectsRoutesFactory;
+};
 
 function requireDb() {
   const db = getDb();
@@ -13,7 +20,24 @@ function requireDb() {
   return db;
 }
 
-export const { GET, POST } = createCollectionRoutes({
+function getCreateProjectsRoutes(): CreateProjectsRoutesFactory {
+  if (liteCmsServer.createProjectsRoutes) {
+    return liteCmsServer.createProjectsRoutes;
+  }
+
+  const legacyFactory = liteCmsServer.createCollectionRoutes;
+  if (legacyFactory) {
+    return legacyFactory;
+  }
+
+  throw new Error(
+    "Missing litecms server factory: expected createProjectsRoutes or createCollectionRoutes.",
+  );
+}
+
+const createProjectsRoutes = getCreateProjectsRoutes();
+
+export const { GET, POST } = createProjectsRoutes({
   checkAuth: async () => {
     const auth = getAuth();
     if (!auth) {

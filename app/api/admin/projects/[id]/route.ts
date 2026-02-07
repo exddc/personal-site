@@ -5,12 +5,43 @@ import { getAuth } from "@/app/lib/auth";
 import { getDb } from "@/app/db";
 import { projects } from "@/app/db/schema";
 
-type CreateProjectRoutesFactory = typeof LiteCmsServer.createProjectRoutes;
-
-const liteCmsServer = LiteCmsServer as {
-  createProjectRoutes?: CreateProjectRoutesFactory;
-  createCollectionItemRoutes?: CreateProjectRoutesFactory;
+type ProjectStatus = "draft" | "published";
+type UpdateProjectInput = {
+  slug?: string;
+  title?: string;
+  description?: string;
+  image?: string | null;
+  technologies?: string[];
+  externalLink?: string;
+  repositoryLink?: string | null;
+  appStoreLink?: string | null;
+  content?: string;
+  status?: ProjectStatus;
+  publishedAt?: Date | null;
 };
+type ProjectRoutesDeps = {
+  checkAuth: () => Promise<boolean>;
+  getProject: (id: string) => Promise<unknown>;
+  updateProject: (id: string, data: UpdateProjectInput) => Promise<unknown>;
+  deleteProject: (id: string) => Promise<void>;
+  slugExistsExcluding: (slug: string, excludeId: string) => Promise<boolean>;
+};
+type ProjectRoutesFactory = (deps: ProjectRoutesDeps) => {
+  GET: (
+    request: Request,
+    context: { params: { id: string } | Promise<{ id: string }> },
+  ) => Promise<Response>;
+  PATCH: (
+    request: Request,
+    context: { params: { id: string } | Promise<{ id: string }> },
+  ) => Promise<Response>;
+  DELETE: (
+    request: Request,
+    context: { params: { id: string } | Promise<{ id: string }> },
+  ) => Promise<Response>;
+};
+
+const liteCmsServer = LiteCmsServer as Record<string, unknown>;
 
 function requireDb() {
   const db = getDb();
@@ -20,12 +51,17 @@ function requireDb() {
   return db;
 }
 
-function getCreateProjectRoutes(): CreateProjectRoutesFactory {
-  if (liteCmsServer.createProjectRoutes) {
-    return liteCmsServer.createProjectRoutes;
+function getCreateProjectRoutes(): ProjectRoutesFactory {
+  const nextFactory = liteCmsServer.createProjectRoutes as
+    | ProjectRoutesFactory
+    | undefined;
+  if (nextFactory) {
+    return nextFactory;
   }
 
-  const legacyFactory = liteCmsServer.createCollectionItemRoutes;
+  const legacyFactory = liteCmsServer.createCollectionItemRoutes as
+    | ProjectRoutesFactory
+    | undefined;
   if (legacyFactory) {
     return legacyFactory;
   }

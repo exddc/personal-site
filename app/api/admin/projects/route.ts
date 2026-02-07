@@ -5,12 +5,33 @@ import { getAuth } from "@/app/lib/auth";
 import { getDb } from "@/app/db";
 import { projects } from "@/app/db/schema";
 
-type CreateProjectsRoutesFactory = typeof LiteCmsServer.createProjectsRoutes;
-
-const liteCmsServer = LiteCmsServer as {
-  createProjectsRoutes?: CreateProjectsRoutesFactory;
-  createCollectionRoutes?: CreateProjectsRoutesFactory;
+type ProjectStatus = "draft" | "published";
+type ProjectsFilter = { status?: ProjectStatus };
+type CreateProjectInput = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  image?: string;
+  technologies?: string[];
+  externalLink: string;
+  repositoryLink?: string;
+  appStoreLink?: string;
+  content: string;
+  status?: ProjectStatus;
 };
+type ProjectsRoutesDeps = {
+  checkAuth: () => Promise<boolean>;
+  getProjects: (filter?: ProjectsFilter) => Promise<unknown[]>;
+  createProject: (project: CreateProjectInput) => Promise<unknown>;
+  slugExists: (slug: string) => Promise<boolean>;
+};
+type ProjectsRoutesFactory = (deps: ProjectsRoutesDeps) => {
+  GET: (request: Request) => Promise<Response>;
+  POST: (request: Request) => Promise<Response>;
+};
+
+const liteCmsServer = LiteCmsServer as Record<string, unknown>;
 
 function requireDb() {
   const db = getDb();
@@ -20,12 +41,17 @@ function requireDb() {
   return db;
 }
 
-function getCreateProjectsRoutes(): CreateProjectsRoutesFactory {
-  if (liteCmsServer.createProjectsRoutes) {
-    return liteCmsServer.createProjectsRoutes;
+function getCreateProjectsRoutes(): ProjectsRoutesFactory {
+  const nextFactory = liteCmsServer.createProjectsRoutes as
+    | ProjectsRoutesFactory
+    | undefined;
+  if (nextFactory) {
+    return nextFactory;
   }
 
-  const legacyFactory = liteCmsServer.createCollectionRoutes;
+  const legacyFactory = liteCmsServer.createCollectionRoutes as
+    | ProjectsRoutesFactory
+    | undefined;
   if (legacyFactory) {
     return legacyFactory;
   }

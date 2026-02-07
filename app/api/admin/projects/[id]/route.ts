@@ -1,4 +1,3 @@
-import * as LiteCmsServer from "litecms/server";
 import { headers } from "next/headers";
 import { and, eq, ne } from "drizzle-orm";
 import { getAuth } from "@/app/lib/auth";
@@ -19,29 +18,9 @@ type UpdateProjectInput = {
   status?: ProjectStatus;
   publishedAt?: Date | null;
 };
-type ProjectRoutesDeps = {
-  checkAuth: () => Promise<boolean>;
-  getProject: (id: string) => Promise<unknown>;
-  updateProject: (id: string, data: UpdateProjectInput) => Promise<unknown>;
-  deleteProject: (id: string) => Promise<void>;
-  slugExistsExcluding: (slug: string, excludeId: string) => Promise<boolean>;
+type RouteContext = {
+  params: { id: string } | Promise<{ id: string }>;
 };
-type ProjectRoutesFactory = (deps: ProjectRoutesDeps) => {
-  GET: (
-    request: Request,
-    context: { params: { id: string } | Promise<{ id: string }> },
-  ) => Promise<Response>;
-  PATCH: (
-    request: Request,
-    context: { params: { id: string } | Promise<{ id: string }> },
-  ) => Promise<Response>;
-  DELETE: (
-    request: Request,
-    context: { params: { id: string } | Promise<{ id: string }> },
-  ) => Promise<Response>;
-};
-
-const liteCmsServer = LiteCmsServer as Record<string, unknown>;
 
 function requireDb() {
   const db = getDb();
@@ -51,96 +30,238 @@ function requireDb() {
   return db;
 }
 
-function getCreateProjectRoutes(): ProjectRoutesFactory {
-  const nextFactory = liteCmsServer.createProjectRoutes as
-    | ProjectRoutesFactory
-    | undefined;
-  if (nextFactory) {
-    return nextFactory;
+async function isAuthorized() {
+  const auth = getAuth();
+  if (!auth) {
+    return false;
   }
 
-  const legacyFactory = liteCmsServer.createCollectionItemRoutes as
-    | ProjectRoutesFactory
-    | undefined;
-  if (legacyFactory) {
-    return legacyFactory;
-  }
-
-  throw new Error(
-    "Missing litecms server factory: expected createProjectRoutes or createCollectionItemRoutes.",
-  );
+  const session = await auth.api.getSession({ headers: await headers() });
+  return !!session?.user;
 }
 
-const createProjectRoutes = getCreateProjectRoutes();
+function parseProjectStatus(value: unknown): ProjectStatus | null {
+  if (value === "draft" || value === "published") {
+    return value;
+  }
+  return null;
+}
 
-export const { GET, PATCH, DELETE } = createProjectRoutes({
-  checkAuth: async () => {
-    const auth = getAuth();
-    if (!auth) return false;
+function parseOptionalDate(value: unknown): Date | null | undefined {
+  if (value === undefined) return undefined;
+  if (value === null) return null;
+  if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
+  if (typeof value !== "string") return null;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
 
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
-    return !!session?.user;
-  },
-  getProject: async (id) => {
-    const db = requireDb();
-    const project = await db.query.projects.findFirst({
-      where: eq(projects.id, id),
-    });
-    if (!project) return null;
-    return {
-      ...project,
-      image: project.image ?? undefined,
-      technologies: (project.technologies as string[]) ?? [],
-      repositoryLink: project.repositoryLink ?? undefined,
-      appStoreLink: project.appStoreLink ?? undefined,
-    };
-  },
-  updateProject: async (id, data) => {
-    const db = requireDb();
-    const current = await db.query.projects.findFirst({
-      where: eq(projects.id, id),
-      columns: { status: true, publishedAt: true },
-    });
+function normalizeProject(project: typeof projects.$inferSelect) {
+  return {
+    ...project,
+    image: project.image ?? undefined,
+    technologies: (project.technologies as string[]) ?? [],
+    repositoryLink: project.repositoryLink ?? undefined,
+    appStoreLink: project.appStoreLink ?? undefined,
+  };
+}
 
-    const updateData: Record<string, unknown> = {
-      ...data,
-      updatedAt: new Date(),
-    };
+function parseUpdatePayload(raw: unknown):
+  | { ok: true; data: UpdateProjectInput }
+  | { ok: false; error: string } {
+  if (!raw || typeof raw !== "object") {
+    return { ok: false, error: "Invalid request body" };
+  }
 
-    if (data.status === "published" && current?.status !== "published") {
-      updateData.publishedAt = new Date();
+  const body = raw as Record<string, unknown>;
+  const data: UpdateProjectInput = {};
+
+  if (body.slug !== undefined) {
+    if (typeof body.slug !== "string" || body.slug.trim().length === 0) {
+      return { ok: false, error: "slug must be a non-empty string" };
     }
+    data.slug = body.slug;
+  }
 
-    if (data.status === "draft" && current?.status === "published") {
-      updateData.publishedAt = null;
+  if (body.title !== undefined) {
+    if (typeof body.title !== "string" || body.title.trim().length === 0) {
+      return { ok: false, error: "title must be a non-empty string" };
     }
+    data.title = body.title;
+  }
 
-    const [updated] = await db
-      .update(projects)
-      .set(updateData)
-      .where(eq(projects.id, id))
-      .returning();
+  if (body.description !== undefined) {
+    if (
+      typeof body.description !== "string" ||
+      body.description.trim().length === 0
+    ) {
+      return { ok: false, error: "description must be a non-empty string" };
+    }
+    data.description = body.description;
+  }
 
-    return {
-      ...updated,
-      image: updated.image ?? undefined,
-      technologies: (updated.technologies as string[]) ?? [],
-      repositoryLink: updated.repositoryLink ?? undefined,
-      appStoreLink: updated.appStoreLink ?? undefined,
-    };
-  },
-  deleteProject: async (id) => {
-    const db = requireDb();
-    await db.delete(projects).where(eq(projects.id, id));
-  },
-  slugExistsExcluding: async (slug, excludeId) => {
-    const db = requireDb();
+  if (body.image !== undefined) {
+    if (typeof body.image !== "string" && body.image !== null) {
+      return { ok: false, error: "image must be a string or null" };
+    }
+    data.image = body.image;
+  }
+
+  if (body.technologies !== undefined) {
+    if (
+      !Array.isArray(body.technologies) ||
+      !body.technologies.every((item) => typeof item === "string")
+    ) {
+      return { ok: false, error: "technologies must be an array of strings" };
+    }
+    data.technologies = body.technologies;
+  }
+
+  if (body.externalLink !== undefined) {
+    if (
+      typeof body.externalLink !== "string" ||
+      body.externalLink.trim().length === 0
+    ) {
+      return { ok: false, error: "externalLink must be a non-empty string" };
+    }
+    data.externalLink = body.externalLink;
+  }
+
+  if (body.repositoryLink !== undefined) {
+    if (typeof body.repositoryLink !== "string" && body.repositoryLink !== null) {
+      return { ok: false, error: "repositoryLink must be a string or null" };
+    }
+    data.repositoryLink = body.repositoryLink;
+  }
+
+  if (body.appStoreLink !== undefined) {
+    if (typeof body.appStoreLink !== "string" && body.appStoreLink !== null) {
+      return { ok: false, error: "appStoreLink must be a string or null" };
+    }
+    data.appStoreLink = body.appStoreLink;
+  }
+
+  if (body.content !== undefined) {
+    if (typeof body.content !== "string") {
+      return { ok: false, error: "content must be a string" };
+    }
+    data.content = body.content;
+  }
+
+  if (body.status !== undefined) {
+    const status = parseProjectStatus(body.status);
+    if (!status) {
+      return { ok: false, error: "status must be draft or published" };
+    }
+    data.status = status;
+  }
+
+  if (body.publishedAt !== undefined) {
+    const publishedAt = parseOptionalDate(body.publishedAt);
+    if (publishedAt === null && body.publishedAt !== null) {
+      return { ok: false, error: "publishedAt must be a valid date" };
+    }
+    data.publishedAt = publishedAt;
+  }
+
+  return { ok: true, data };
+}
+
+async function getId(context: RouteContext): Promise<string> {
+  const params = await context.params;
+  return params.id;
+}
+
+export async function GET(_request: Request, context: RouteContext) {
+  if (!(await isAuthorized())) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const id = await getId(context);
+  const db = requireDb();
+  const project = await db.query.projects.findFirst({
+    where: eq(projects.id, id),
+  });
+
+  if (!project) {
+    return Response.json({ error: "Project not found" }, { status: 404 });
+  }
+
+  return Response.json({ project: normalizeProject(project) });
+}
+
+export async function PATCH(request: Request, context: RouteContext) {
+  if (!(await isAuthorized())) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  const parsed = parseUpdatePayload(body);
+  if (!parsed.ok) {
+    return Response.json({ error: parsed.error }, { status: 400 });
+  }
+
+  const id = await getId(context);
+  const db = requireDb();
+  const current = await db.query.projects.findFirst({
+    where: eq(projects.id, id),
+    columns: { id: true, status: true, publishedAt: true },
+  });
+  if (!current) {
+    return Response.json({ error: "Project not found" }, { status: 404 });
+  }
+
+  if (parsed.data.slug) {
     const existing = await db.query.projects.findFirst({
-      where: and(eq(projects.slug, slug), ne(projects.id, excludeId)),
+      where: and(eq(projects.slug, parsed.data.slug), ne(projects.id, id)),
       columns: { id: true },
     });
-    return !!existing;
-  },
-});
+    if (existing) {
+      return Response.json({ error: "Slug already exists" }, { status: 409 });
+    }
+  }
+
+  const updateData: Record<string, unknown> = {
+    ...parsed.data,
+    updatedAt: new Date(),
+  };
+
+  if (parsed.data.status === "published" && current.status !== "published") {
+    updateData.publishedAt = parsed.data.publishedAt ?? new Date();
+  } else if (parsed.data.status === "draft" && current.status === "published") {
+    updateData.publishedAt = null;
+  }
+
+  const [updated] = await db
+    .update(projects)
+    .set(updateData)
+    .where(eq(projects.id, id))
+    .returning();
+
+  return Response.json({ project: normalizeProject(updated) });
+}
+
+export async function DELETE(_request: Request, context: RouteContext) {
+  if (!(await isAuthorized())) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const id = await getId(context);
+  const db = requireDb();
+  const [deleted] = await db
+    .delete(projects)
+    .where(eq(projects.id, id))
+    .returning({ id: projects.id });
+
+  if (!deleted) {
+    return Response.json({ error: "Project not found" }, { status: 404 });
+  }
+
+  return Response.json({ success: true });
+}

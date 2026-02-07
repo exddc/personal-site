@@ -29,9 +29,13 @@ function getProjectsAdminComponent(): CmsProjectsAdminComponent {
     return legacyComponent;
   }
 
-  throw new Error(
-    "Missing litecms admin component: expected CmsProjectsAdmin or CmsCollectionAdmin.",
-  );
+  return function MissingProjectsAdmin() {
+    return (
+      <div className="p-6 text-sm text-red-600">
+        Missing litecms admin component for projects.
+      </div>
+    );
+  };
 }
 
 const CmsProjectsAdmin = getProjectsAdminComponent();

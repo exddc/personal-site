@@ -1,20 +1,7 @@
-// Libraries
-import React, { ViewTransition } from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-// Styles
 import "./globals.css";
-
-// Components
-import Script from "next/script";
-import ClientLayout from "@/components/ClientLayout";
-import { BlogListProvider } from "@/lib/context/blog-context";
-import { ProjectsListProvider } from "@/lib/context/projects-context";
-import { getPosts } from "@/lib/blog";
-import { getProjects } from "@/lib/projects";
-
-export const dynamic = "force-dynamic";
 
 // Fonts
 const PPMontreal = localFont({
@@ -70,33 +57,17 @@ export const metadata: Metadata = {
   icons: "/icon.jpg",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const posts = await getPosts();
-  const projects = await getProjects();
-
   return (
     <html
       lang="en"
       className={`${PPMontreal.variable} ${PPMontrealMono.variable} h-full w-full antialiased`}
     >
-      <body className="relative h-full w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
-        <ViewTransition>
-          <ProjectsListProvider projects={projects}>
-            <BlogListProvider posts={posts}>
-              <ClientLayout>{children}</ClientLayout>
-            </BlogListProvider>
-          </ProjectsListProvider>
-        </ViewTransition>
-      </body>
-      <Script
-        defer
-        data-domain="timoweiss.me"
-        src="https://plausible.io/js/script.js"
-      ></Script>
+      <body className="h-full w-full">{children}</body>
     </html>
   );
 }

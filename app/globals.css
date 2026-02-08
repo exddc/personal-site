@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "litecms/tailwind.css";
 @plugin "@tailwindcss/typography";
 
 @theme {

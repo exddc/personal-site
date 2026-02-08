@@ -21,9 +21,9 @@ export default function AnimatedList({ posts }: Props) {
         <motion.div key={post.slug} variants={item}>
           <NextLink
             href={`/blog/${post.slug}`}
-            className="group flex flex-col gap-2 transition-colors first:pt-0 hover:border-white/30"
+            className="group flex flex-col gap-6 transition-colors first:pt-0 hover:border-white/30"
           >
-            <div className="sm:items-top flex flex-col sm:flex-row sm:justify-between">
+            <div className="sm:items-top flex flex-col">
               <h2 className="text-foreground group-hover:text-accent text-2xl font-medium transition-colors sm:text-3xl">
                 {post.title}
               </h2>

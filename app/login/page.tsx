@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "@/app/lib/auth-client";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const isResetSuccess = searchParams.get("reset") === "success";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,31 +40,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+      <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Admin Login</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Admin Login
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
             Sign in to access the content manager
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          {isResetSuccess && (
+            <div className="p-3 text-sm text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              Password updated successfully. You can now sign in.
+            </div>
+          )}
+
           <div className="space-y-4">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Email address
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
                 placeholder="admin@example.com"
               />
             </div>
@@ -70,23 +82,26 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Password
               </label>
               <input
                 id="password"
+                name="password"
                 type="password"
+                autoComplete="current-password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
+                placeholder="••••••••"
               />
             </div>
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+            <div className="p-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-lg">
               {error}
             </div>
           )}
@@ -94,19 +109,29 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-3 text-white hover:bg-blue-700 disabled:opacity-50"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
 
-          <p className="text-center text-sm text-gray-600">
-            Need an account?{" "}
-            <Link href="/signup" className="text-blue-600 hover:text-blue-500">
-              Sign up
+          <div className="text-center">
+            <Link
+              href="/forgot-password"
+              className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            >
+              Forgot password?
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

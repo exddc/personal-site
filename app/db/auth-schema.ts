@@ -1,4 +1,11 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, jsonb } from "drizzle-orm/pg-core";
+
+/**
+ * User settings stored as JSONB
+ */
+export type UserSettings = {
+  language?: "en" | "de";
+};
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -6,8 +13,13 @@ export const user = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
+  role: text("role").default("user"),
+  banned: boolean("banned").default(false),
+  banReason: text("ban_reason"),
+  banExpires: timestamp("ban_expires", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  settings: jsonb("settings").$type<UserSettings>(),
 });
 
 export const session = pgTable("session", {
@@ -18,6 +30,7 @@ export const session = pgTable("session", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
+  impersonatedBy: text("impersonated_by"),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),

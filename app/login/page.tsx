@@ -1,9 +1,11 @@
 "use client";
 
 import React, { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/app/lib/auth-client";
+import { container, item } from "@/lib/animations";
 
 function LoginPageContent() {
   const router = useRouter();
@@ -40,90 +42,106 @@ function LoginPageContent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Admin Login
-          </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Sign in to access the content manager
+    <div className="relative min-h-screen w-full p-0 selection:bg-[var(--accent)] selection:text-white xl:p-24">
+      <motion.main
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="mx-auto flex w-full max-w-5xl flex-col gap-16 p-6 sm:p-12 lg:p-24 xl:gap-24"
+      >
+        <motion.nav
+          variants={item}
+          className="font-mono text-sm tracking-tight text-neutral-500"
+        >
+          <Link href="/" className="hover:text-accent transition-colors">
+            back to site
+          </Link>
+        </motion.nav>
+
+        <motion.section variants={item} className="flex max-w-xl flex-col gap-8">
+          <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
+            <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-5xl">
+              Admin Login
+            </h1>
+          </div>
+          <p className="text-lg tracking-tight text-neutral-500">
+            Sign in to access the content manager.
           </p>
-        </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          {isResetSuccess && (
-            <div className="p-3 text-sm text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              Password updated successfully. You can now sign in.
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            {isResetSuccess && (
+              <div className="border border-neutral-300 bg-neutral-200/40 px-4 py-3 text-sm text-foreground">
+                Password updated successfully. You can now sign in.
+              </div>
+            )}
+
+            <div className="grid gap-5">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="font-mono text-xs tracking-wide text-neutral-500"
+                >
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-2 w-full border border-neutral-300 bg-transparent px-4 py-3 text-foreground placeholder:text-neutral-500 transition-colors focus:border-accent focus:outline-none"
+                  placeholder="admin@example.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="font-mono text-xs tracking-wide text-neutral-500"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-2 w-full border border-neutral-300 bg-transparent px-4 py-3 text-foreground placeholder:text-neutral-500 transition-colors focus:border-accent focus:outline-none"
+                  placeholder="••••••••"
+                />
+              </div>
             </div>
-          )}
 
-          <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
-                placeholder="admin@example.com"
-              />
-            </div>
+            {error && (
+              <div className="border border-accent/50 bg-accent/10 px-4 py-3 text-sm text-accent">
+                {error}
+              </div>
+            )}
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
-                placeholder="••••••••"
-              />
-            </div>
-          </div>
-
-          {error && (
-            <div className="p-3 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-lg">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? "Signing in..." : "Sign in"}
-          </button>
-
-          <div className="text-center">
-            <Link
-              href="/forgot-password"
-              className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full border border-foreground bg-foreground px-4 py-3 font-mono text-sm text-background transition-colors hover:border-accent hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Forgot password?
-            </Link>
-          </div>
-        </form>
-      </div>
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+
+            <div className="pt-1">
+              <Link
+                href="/forgot-password"
+                className="font-mono text-sm text-neutral-500 transition-colors hover:text-accent"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          </form>
+        </motion.section>
+      </motion.main>
     </div>
   );
 }

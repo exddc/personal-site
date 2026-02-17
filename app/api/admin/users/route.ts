@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import { hashPassword } from "better-auth/crypto";
 import { and, desc, eq, isNotNull } from "drizzle-orm";
 import { createAdminUsersRoutes } from "litecms/server";
 import { getDb } from "@/app/db";
@@ -90,9 +89,10 @@ export const { GET, POST } = createAdminUsersRoutes({
       })) ?? null
     );
   },
-  createUser: async ({ name, email, password }) => {
+  createUser: async ({ name, email }) => {
     const db = requireDb();
     const userId = randomUUID();
+    const now = new Date();
 
     await db.insert(user).values({
       id: userId,
@@ -101,25 +101,9 @@ export const { GET, POST } = createAdminUsersRoutes({
       role: "user",
       emailVerified: true,
       banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     });
-
-    let hasPassword = false;
-
-    if (password) {
-      const hashedPassword = await hashPassword(password);
-      await db.insert(account).values({
-        id: randomUUID(),
-        accountId: userId,
-        providerId: "credential",
-        userId,
-        password: hashedPassword,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-      hasPassword = true;
-    }
 
     return {
       id: userId,
@@ -127,8 +111,8 @@ export const { GET, POST } = createAdminUsersRoutes({
       email,
       role: "user",
       banned: false,
-      createdAt: new Date(),
-      hasPassword,
+      createdAt: now,
+      hasPassword: false,
     };
   },
 });

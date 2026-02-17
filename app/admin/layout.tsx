@@ -40,13 +40,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     const adminModules = [
         {
             id: 'content',
-            title: 'Website Content',
+            title: 'Inhalte',
             href: '/admin',
             icon: CmsModuleIcons.pages,
         },
         {
             id: 'projects',
-            title: 'Projects',
+            title: 'Projekte',
             href: '/admin/projects',
             icon: CmsModuleIcons.analytics,
         },
@@ -56,11 +56,17 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             href: '/admin/blog',
             icon: CmsModuleIcons.blog,
         },
+        {
+            id: 'account',
+            title: 'Konto',
+            href: '/admin/account',
+            icon: CmsModuleIcons.pages,
+        },
         ...(isAdmin
             ? [
                   {
                       id: 'users',
-                      title: 'Users',
+                      title: 'Benutzer',
                       href: '/admin/users',
                       icon: CmsModuleIcons.email,
                   },
@@ -68,19 +74,21 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             : []),
     ];
 
-    // Determine which module is active
     const isBlogSection = pathname?.startsWith('/admin/blog');
     const isProjectsSection = pathname?.startsWith('/admin/projects');
     const isUsersSection = pathname?.startsWith('/admin/users');
+    const isAccountSection = pathname?.startsWith('/admin/account');
     const layoutProps = extractLayoutProps(cmsConfig);
     const isContentSection =
-        !isBlogSection && !isProjectsSection && !isUsersSection;
+        !isBlogSection &&
+        !isProjectsSection &&
+        !isUsersSection &&
+        !isAccountSection;
 
     return (
         <CmsAdminLayout
             {...layoutProps}
             modules={adminModules}
-            // Only show pages when in the content section
             pages={isContentSection ? layoutProps.pages : []}
             onLogout={handleLogout}
         >

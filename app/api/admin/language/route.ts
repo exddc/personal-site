@@ -21,14 +21,20 @@ export const { GET, POST } = createLanguageRoutes(
     getUserSettings: async (userId) => {
       const db = getDb();
       if (!db) {
-        return null;
+        return { language: "de" };
       }
 
       const userData = await db.query.user.findFirst({
         where: eq(user.id, userId),
         columns: { settings: true },
       });
-      return (userData?.settings as UserSettings | null) ?? null;
+
+      const settings = (userData?.settings as UserSettings | null) ?? null;
+      if (settings?.language === "en" || settings?.language === "de") {
+        return settings;
+      }
+
+      return { ...(settings ?? {}), language: "de" };
     },
     updateUserSettings: async (userId, settings) => {
       const db = getDb();

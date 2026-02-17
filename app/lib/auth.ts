@@ -7,7 +7,18 @@ import { sendPasswordResetEmail } from "@/app/lib/email";
 
 let authInstance: ReturnType<typeof betterAuth> | null = null;
 
-function normalizeBaseURL(raw?: string) {
+function parseUrlList(raw?: string) {
+  if (!raw) {
+    return [];
+  }
+
+  return raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
+function normalizeOrigin(raw?: string) {
   if (!raw) {
     return undefined;
   }
@@ -20,14 +31,46 @@ function normalizeBaseURL(raw?: string) {
 }
 
 function resolveBaseURL() {
-  return normalizeBaseURL(
-    process.env.BETTER_AUTH_URL ??
-      process.env.NEXT_PUBLIC_BETTER_AUTH_URL ??
-      (process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-        : undefined) ??
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined),
-  );
+  const candidates = [
+    ...parseUrlList(process.env.BETTER_AUTH_URL),
+    ...parseUrlList(process.env.NEXT_PUBLIC_BETTER_AUTH_URL),
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+  ];
+
+  for (const candidate of candidates) {
+    const normalized = normalizeOrigin(candidate);
+    if (normalized) {
+      return normalized;
+    }
+  }
+
+  return undefined;
+}
+
+function resolveTrustedOrigins(baseURL?: string) {
+  const origins = new Set<string>();
+
+  if (baseURL) {
+    origins.add(baseURL);
+  }
+
+  const candidates = [
+    ...parseUrlList(process.env.BETTER_AUTH_URL),
+    ...parseUrlList(process.env.NEXT_PUBLIC_BETTER_AUTH_URL),
+    ...parseUrlList(process.env.BETTER_AUTH_TRUSTED_ORIGINS),
+  ];
+
+  for (const candidate of candidates) {
+    const normalized = normalizeOrigin(candidate);
+    if (normalized) {
+      origins.add(normalized);
+    }
+  }
+
+  return origins.size > 0 ? Array.from(origins) : undefined;
 }
 
 export function getAuth() {
@@ -36,9 +79,12 @@ export function getAuth() {
   const db = getDb();
   if (!db) return null;
 
+  const baseURL = resolveBaseURL();
+
   authInstance = betterAuth({
-    baseURL: resolveBaseURL(),
+    baseURL,
     basePath: "/api/auth",
+    trustedOrigins: resolveTrustedOrigins(baseURL),
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: authSchema,

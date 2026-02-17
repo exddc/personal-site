@@ -16,24 +16,31 @@ export default async function AdminIndexPage() {
       modules={[
         {
           id: "projects",
-          title: "Projects",
-          description: "Manage portfolio projects",
+          title: "Projekte",
+          description: "Portfolio-Projekte verwalten",
           icon: CmsModuleIcons.analytics,
           href: "/admin/projects",
         },
         {
           id: "blog",
           title: "Blog",
-          description: "Write and manage blog posts",
+          description: "Blogbeiträge schreiben und verwalten",
           icon: CmsModuleIcons.blog,
           href: "/admin/blog",
+        },
+        {
+          id: "account",
+          title: "Konto",
+          description: "Eigenes Passwort ändern",
+          icon: CmsModuleIcons.pages,
+          href: "/admin/account",
         },
         ...(isAdmin
           ? [
               {
                 id: "users",
-                title: "Users",
-                description: "Manage CMS users and invites",
+                title: "Benutzer",
+                description: "CMS-Benutzer und Einladungen verwalten",
                 icon: CmsModuleIcons.email,
                 href: "/admin/users",
               },

@@ -1,3 +1,5 @@
+import { toNextJsHandler } from "better-auth/next-js";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -5,21 +7,31 @@ function authNotConfiguredResponse() {
   return Response.json({ error: "Auth not configured" }, { status: 500 });
 }
 
-async function handleAuth(request: Request) {
+async function resolveHandler() {
   const { getAuth } = await import("@/app/lib/auth");
   const auth = getAuth();
 
   if (!auth) {
-    return authNotConfiguredResponse();
+    return null;
   }
 
-  return auth.handler(request);
+  return toNextJsHandler(auth.handler);
 }
 
 export async function GET(request: Request) {
-  return handleAuth(request);
+  const handler = await resolveHandler();
+  if (!handler) {
+    return authNotConfiguredResponse();
+  }
+
+  return handler.GET(request);
 }
 
 export async function POST(request: Request) {
-  return handleAuth(request);
+  const handler = await resolveHandler();
+  if (!handler) {
+    return authNotConfiguredResponse();
+  }
+
+  return handler.POST(request);
 }

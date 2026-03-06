@@ -16,6 +16,7 @@ import ProjectLink from "@/components/ProjectLink";
 import Tooltip from "@/components/Tooltip";
 import BlogPostPreview from "@/components/BlogPostPreview";
 import { container, item } from "@/lib/animations";
+import { buildProjectOutboundUrl } from "@/lib/utils";
 
 export default function Home() {
   const { isInitialLoad } = useNavigation();
@@ -94,10 +95,13 @@ export default function Home() {
           {projects.slice(0, 4).map((project) => (
             <ProjectLink
               key={project.slug}
-              href={project.externalLink}
+              href={buildProjectOutboundUrl(project.externalLink, {
+                placement: "landing_page",
+                projectSlug: project.slug,
+              })}
               title={project.title}
               description={project.description}
-              internalLink={`/projects/${project.slug}`}
+              internalLink={`/projects/${project.slug}?from=landing_page`}
             />
           ))}
         </div>

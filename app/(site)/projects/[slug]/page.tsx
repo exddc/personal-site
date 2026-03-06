@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
 import { useProject } from "@/lib/context/projects-context";
 import { useNavigation } from "@/lib/context/navigation-context";
-import { ExternalLink } from "lucide-react";
+import { buildProjectOutboundUrl, type ProjectLinkPlacement } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 // Components
 import PageHeader from "@/components/PageHeader";
@@ -19,6 +20,12 @@ import Link from "@/components/Link";
 export default function ProjectPage() {
   const project = useProject();
   const { isInitialLoad } = useNavigation();
+  const searchParams = useSearchParams();
+  const fromParam = searchParams.get("from");
+  const placement: ProjectLinkPlacement =
+    fromParam === "landing_page" || fromParam === "projects_page"
+      ? fromParam
+      : "project_detail_page";
 
   return (
     <motion.div
@@ -54,7 +61,13 @@ export default function ProjectPage() {
         </div>
 
         <div className="flex flex-row gap-8">
-          <Link href={project.externalLink} title="Visit Project" />
+          <Link
+            href={buildProjectOutboundUrl(project.externalLink, {
+              placement,
+              projectSlug: project.slug,
+            })}
+            title="Visit Project"
+          />
           {project.repositoryLink && (
             <Link href={project.repositoryLink} title="View Repository" />
           )}

@@ -28,7 +28,7 @@ export const cmsConfig = createCmsConfig({
       group: "Pages",
     }),
     definePage({
-      slug: "settings",
+      slug: "general",
       title: "Site Settings",
       description: "Edit hero, footer, and social links",
       definition: SiteSettingsDef,

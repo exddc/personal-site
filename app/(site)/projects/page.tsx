@@ -109,7 +109,7 @@ export default function Projects() {
                 transition={{ duration: 0.2 }}
               >
                 <ProjectCard
-                  href={`/projects/${project.slug}`}
+                  href={`/projects/${project.slug}?from=projects_page`}
                   title={project.title}
                   description={project.description}
                   image={project.image}

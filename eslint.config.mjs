@@ -1,18 +1,9 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
-  { ignores: [".next/**", "node_modules/**"] },
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  {
-    languageOptions: { globals: globals.browser },
-    settings: { react: { version: "detect" } },
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
-  pluginReact.configs.flat["jsx-runtime"],
-];
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypeScript,
+  globalIgnores([".next/**", "coverage/**", "out/**"]),
+]);

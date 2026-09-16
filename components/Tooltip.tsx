@@ -1,10 +1,8 @@
 "use client";
 
-// Libraries
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Types
 interface Props {
   children: React.ReactNode;
   content: string;

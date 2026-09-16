@@ -1,22 +1,14 @@
 "use client";
 
-// Libraries
 import { motion, Variants } from "framer-motion";
 
-// Components
 import NextLink from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 
-// Types
 interface Props {
   variants: Variants;
 }
 
 export default function NavBar({ variants }: Props) {
-  const currentPath = usePathname();
-  const isActive = (path: string) => currentPath === path;
-
   return (
     <motion.nav
       variants={variants}
@@ -24,38 +16,22 @@ export default function NavBar({ variants }: Props) {
     >
       <NextLink
         href="/"
-        className={cn(
-          "hover:text-accent transition-colors",
-          isActive("/") && "text-accent",
-        )}
+        className="text-accent hover:text-accent transition-colors"
       >
         home
       </NextLink>
+      <NextLink href="/#apps" className="hover:text-accent transition-colors">
+        apps
+      </NextLink>
       <NextLink
-        href="/projects"
-        className={cn(
-          "hover:text-accent transition-colors",
-          isActive("/projects") && "text-accent",
-        )}
+        href="/#projects"
+        className="hover:text-accent transition-colors"
       >
         projects
       </NextLink>
       <NextLink
-        href="/blog"
-        className={cn(
-          "hover:text-accent transition-colors",
-          isActive("/blog") && "text-accent",
-        )}
-      >
-        writing
-      </NextLink>
-
-      <NextLink
         href="/#socials"
-        className={cn(
-          "hover:text-accent transition-colors",
-          isActive("/socials") && "text-accent",
-        )}
+        className="hover:text-accent transition-colors"
       >
         socials
       </NextLink>

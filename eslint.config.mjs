@@ -5,9 +5,14 @@ import pluginReact from "eslint-plugin-react";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  { ignores: [".next/**", "node_modules/**"] },
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: { globals: globals.browser },
+    settings: { react: { version: "detect" } },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat["jsx-runtime"],
 ];

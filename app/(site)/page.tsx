@@ -1,38 +1,22 @@
 "use client";
 
-// Libraries
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { useNavigation } from "@/lib/context/navigation-context";
-import { useBlogPosts } from "@/lib/context/blog-context";
-import { useHomePage } from "@/lib/context/home-context";
-import { useProjects } from "@/lib/context/projects-context";
-import { useSiteSettings } from "@/lib/context/site-context";
 
-// Components
-import NextLink from "next/link";
 import Link from "@/components/Link";
 import ProjectLink from "@/components/ProjectLink";
 import Tooltip from "@/components/Tooltip";
-import BlogPostPreview from "@/components/BlogPostPreview";
 import { container, item } from "@/lib/animations";
+import { apps, homePage, projects, siteSettings } from "@/lib/content";
 import { buildProjectOutboundUrl } from "@/lib/utils";
 
 export default function Home() {
-  const { isInitialLoad } = useNavigation();
-  const posts = useBlogPosts();
-  const projects = useProjects();
-  const siteSettings = useSiteSettings();
-  const homePage = useHomePage();
-
   return (
     <motion.div
       variants={container}
-      initial={isInitialLoad ? "hidden" : false}
+      initial="hidden"
       animate="show"
-      className="flex flex-col gap-24 xl:gap-32"
+      className="flex flex-col gap-24"
     >
-      {/* Hero */}
       <motion.div variants={item} className="flex flex-col gap-2">
         <h1 className="text-foreground text-4xl font-medium tracking-tight sm:text-6xl">
           {siteSettings.siteName}
@@ -46,108 +30,80 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* About */}
-      <motion.section variants={item} id="about" className="max-w-2xl">
-        <span className="text-xl leading-snug text-neutral-500 sm:text-2xl">
-          {homePage.aboutIntro}{" "}
-          <Tooltip content={homePage.aboutWebTooltip}>
-            {homePage.aboutWebLabel}
-          </Tooltip>
-          ,{" "}
-          <Tooltip content={homePage.aboutAutoTooltip}>
-            {homePage.aboutAutoLabel}
+      <motion.section variants={item} id="about" className="max-w-3xl">
+        <p className="text-xl leading-snug text-neutral-500 sm:text-2xl">
+          I build{" "}
+          <Tooltip content={homePage.aiTooltip}>full-stack AI systems</Tooltip>{" "}
+          at HMMC, with several years of experience shipping high performance
+          applications and systems. Previously,
+          <Tooltip content={homePage.autoTooltip}>
+            automotive interfaces, testing and tooling
           </Tooltip>{" "}
-          and{" "}
-          <Tooltip content={homePage.aboutToolingTooltip}>
-            {homePage.aboutToolingLabel}
-          </Tooltip>
-          . {homePage.aboutBridge}{" "}
-          <Tooltip content={homePage.aboutDigitalTooltip}>
-            {homePage.aboutDigitalLabel}
-          </Tooltip>{" "}
-          and{" "}
-          <Tooltip content={homePage.aboutPhysicalTooltip}>
-            {homePage.aboutPhysicalLabel}
-          </Tooltip>{" "}
-          {homePage.aboutOutro}
-        </span>
+          at MAGNA. <br />
+          My own projects span{" "}
+          <Tooltip content={homePage.nativeTooltip}>
+            native apps
+          </Tooltip> and{" "}
+          <Tooltip content={homePage.embeddedTooltip}>embedded systems</Tooltip>{" "}
+          in various physical and digital domains.
+        </p>
       </motion.section>
 
-      {/* Projects */}
+      <motion.section
+        variants={item}
+        id="apps"
+        className="flex scroll-mt-8 flex-col gap-12"
+      >
+        <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
+          <h2 className="text-foreground font-mono text-xl font-medium">
+            {homePage.appsTitle}
+          </h2>
+        </div>
+        <div className="grid gap-x-12 gap-y-16 lg:grid-cols-2">
+          {apps.map((app) => (
+            <ProjectLink
+              key={app.slug}
+              title={app.title}
+              description={app.description}
+              href={buildProjectOutboundUrl(app.href, app.slug)}
+              actionLabel={app.actionLabel}
+              secondaryLink={{
+                label: app.secondaryLink.label,
+                href: buildProjectOutboundUrl(app.secondaryLink.href, app.slug),
+              }}
+            />
+          ))}
+        </div>
+      </motion.section>
+
       <motion.section
         variants={item}
         id="projects"
-        className="flex flex-col gap-12"
+        className="flex scroll-mt-8 flex-col gap-12"
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">
             {homePage.projectsTitle}
           </h2>
-          <NextLink
-            href="/projects"
-            className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
-          >
-            {homePage.projectsCtaLabel} <ArrowRight className="h-4 w-4" />
-          </NextLink>
         </div>
 
         <div className="grid gap-x-12 gap-y-16 lg:grid-cols-2">
-          {projects.slice(0, 4).map((project) => (
+          {projects.map((project) => (
             <ProjectLink
               key={project.slug}
-              href={buildProjectOutboundUrl(project.externalLink, {
-                placement: "landing_page",
-                projectSlug: project.slug,
-              })}
+              href={buildProjectOutboundUrl(project.href, project.slug)}
               title={project.title}
               description={project.description}
-              internalLink={`/projects/${project.slug}?from=landing_page`}
+              actionLabel={project.actionLabel}
             />
           ))}
         </div>
       </motion.section>
 
-      {/* Blog */}
-      <motion.section
-        variants={item}
-        id="latest-posts"
-        className="flex flex-col gap-12"
-      >
-        <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
-          <h2 className="text-foreground font-mono text-xl font-medium">
-            {homePage.writingTitle}
-          </h2>
-          <NextLink
-            href="/blog"
-            className="hover:text-accent mt-4 flex items-center gap-2 font-mono text-sm transition-all"
-          >
-            {homePage.writingCtaLabel} <ArrowRight className="h-4 w-4" />
-          </NextLink>
-        </div>
-
-        <div className="flex flex-col gap-12">
-          {posts.slice(0, 4).map((post) => (
-            <BlogPostPreview
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              title={post.title}
-              description={post.description}
-              date={new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-              readingMinutes={post.readingMinutes}
-            />
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Socials */}
       <motion.section
         variants={item}
         id="socials"
-        className="flex flex-col gap-12"
+        className="flex scroll-mt-8 flex-col gap-12"
       >
         <div className="flex items-baseline justify-between border-b border-neutral-300 pb-4">
           <h2 className="text-foreground font-mono text-xl font-medium">

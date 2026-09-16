@@ -1,10 +1,8 @@
 "use client";
 
-// Libraries
 import { motion } from "framer-motion";
 import { container, item } from "@/lib/animations";
 
-// Components
 import NextLink from "next/link";
 
 export default function NotFound() {
@@ -23,7 +21,7 @@ export default function NotFound() {
       </motion.div>
 
       <motion.p variants={item} className="max-w-md text-neutral-500">
-        The page you're looking for doesn't exist.
+        The page you&apos;re looking for doesn&apos;t exist.
       </motion.p>
 
       <motion.div variants={item}>

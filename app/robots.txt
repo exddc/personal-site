@@ -1,5 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow:
-
-Sitemap: https://timoweiss.me/sitemap.xml

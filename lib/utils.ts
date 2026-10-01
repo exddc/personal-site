@@ -1,31 +1,26 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+const TRACKING_PARAMETERS = {
+  utm_source: "timoweiss_me_landing_page",
+  utm_medium: "portfolio_website",
+  utm_campaign: "project_click",
+} as const;
 
-const UTM_MEDIUM = "portfolio_website";
-const UTM_CAMPAIGN = "project_click";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export function buildProjectOutboundUrl(href: string, projectSlug: string) {
-  let parsedUrl: URL;
+export function buildOutboundUrl(href: string, projectSlug: string) {
+  let url: URL;
 
   try {
-    parsedUrl = new URL(href);
+    url = new URL(href);
   } catch {
     return href;
   }
 
-  if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+  if (!["http:", "https:"].includes(url.protocol)) {
     return href;
   }
 
-  parsedUrl.searchParams.set("utm_source", "timoweiss_me_landing_page");
-  parsedUrl.searchParams.set("utm_medium", UTM_MEDIUM);
-  parsedUrl.searchParams.set("utm_campaign", UTM_CAMPAIGN);
+  for (const [key, value] of Object.entries(TRACKING_PARAMETERS)) {
+    url.searchParams.set(key, value);
+  }
+  url.searchParams.set("utm_content", projectSlug);
 
-  parsedUrl.searchParams.set("utm_content", projectSlug);
-
-  return parsedUrl.toString();
+  return url.toString();
 }

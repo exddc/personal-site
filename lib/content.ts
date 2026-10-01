@@ -1,6 +1,6 @@
 export const siteSettings = {
   siteName: "Timo Weiss",
-  footerRolePrefix: "Full-stack engineer at",
+  footerRolePrefix: "Senior software engineer and marketing at",
   footerCompanyName: "HMMC",
   footerCompanyUrl: "https://hmmc.io",
   socialGitHubLabel: "GitHub",
@@ -12,7 +12,7 @@ export const siteSettings = {
 } as const;
 
 export const homePage = {
-  heroRolePrefix: "Full-stack engineer at",
+  heroRolePrefix: "Senior software engineer and marketing at",
   heroCompanyName: "HMMC",
   heroCompanyUrl: "https://hmmc.io",
   aiTooltip:

@@ -23,6 +23,15 @@ export const about = {
 
 export const apps = [
   {
+    slug: "gotdoneapp",
+    title: "Got Done",
+    description:
+      "A native iOS app for daily tasks and habits in a minimal and focused design. Built with Swift and SwiftUI, published on the App Store.",
+    href: "https://apps.apple.com/app/id6737226124",
+    actionLabel: "View on the App Store",
+    secondaryLink: { href: "https://gotdoneapp.com", label: "Website" },
+  },
+  {
     slug: "meerkat",
     title: "Meerkat",
     description:
@@ -35,13 +44,16 @@ export const apps = [
     },
   },
   {
-    slug: "gotdoneapp",
-    title: "Got Done",
+    slug: "consuela",
+    title: "consuela",
     description:
-      "A native iOS app for daily tasks and habits in a minimal and focused design. Built with Swift and SwiftUI, published on the App Store.",
-    href: "https://apps.apple.com/app/id6737226124",
-    actionLabel: "View on the App Store",
-    secondaryLink: { href: "https://gotdoneapp.com", label: "Website" },
+      "A macOS cleanup CLI that removes leftover Xcode data and developer caches. It shows how much space a run frees and asks before deleting anything.",
+    href: "https://github.com/exddc/consuela#install",
+    actionLabel: "Install",
+    secondaryLink: {
+      href: "https://github.com/exddc/consuela",
+      label: "Source code",
+    },
   },
 ] as const satisfies readonly Project[];
 

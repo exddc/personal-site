@@ -35,6 +35,14 @@ export const apps = [
     },
   },
   {
+    slug: "consuela",
+    title: "consuela",
+    description:
+      "A macOS cleanup CLI that removes leftover Xcode data and developer caches. It shows how much space a run frees and asks before deleting anything. Install it with Homebrew (brew install exddc/tap/consuela).",
+    href: "https://github.com/exddc/consuela",
+    actionLabel: "View source on GitHub",
+  },
+  {
     slug: "gotdoneapp",
     title: "Got Done",
     description:
